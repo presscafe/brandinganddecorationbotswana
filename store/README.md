@@ -37,12 +37,33 @@ Netlify is equally viable: set the publish directory to `store` and no build com
 
 | File | Purpose |
 |---|---|
-| `index.html` | Storefront: hero, quote engine, catalogue, programme services, partner recruitment |
-| `assets/app.js` | Quote engine + catalogue rendering (all calculation is client-side) |
-| `assets/styles.css` | Mobile-first styles with a print stylesheet for client-facing quotations |
+| `index.html` | Three-step builder (pick → brand → fine-tune), live answer panel, catalogue, programmes, partners |
+| `assets/app.js` | Quote engine + interface wiring (all calculation is client-side) |
+| `assets/styles.css` | Card-based interface, mobile sticky total, print stylesheet for client-facing quotations |
 | `data/catalogue.json` | **Product master** — products, decoration methods, delivery zones, pricing rules |
 | `sw.js` | Offline caching (registered only over HTTPS) |
 | `manifest.webmanifest` | Installable PWA |
+
+## How the interface is designed
+
+Two ideas, deliberately mixed:
+
+- **Card-step flow (Gamma-style).** One job per card, big touch targets, nothing disabled, progressive
+  disclosure — embroidery and print settings only appear when you choose those methods; delivery, terms and
+  turnaround sit behind one "Fine-tune" disclosure.
+- **Live answer panel (Napkin-style).** The price is always on screen and recalculates on every change — no
+  submit button anywhere in the flow. The headline is a plain sentence, not a table: *"P234.29 per each —
+  Embroidery (8,000 stitches) · delivered to Gaborone · prepayment · ready in about 5 working days."*
+
+Two behaviours worth knowing:
+
+- **Volume tips.** When the next quantity tier is close, the panel says exactly what it would save per unit —
+  e.g. *"at 500 units the unit price falls from P286.77 to P275.83."* Guidance, never a hard block.
+- **Guidance instead of blocking.** Minimum-quantity and economical-minimum warnings are shown as notes; the
+  customer can always see the number rather than being stopped by a disabled control.
+
+On mobile the steps come first and a sticky bar carries the running total; **Breakdown** scrolls to the full
+panel. Staff margin figures stay behind a collapsed "Internal margin view" disclosure.
 
 ## The pricing model in `data/catalogue.json`
 
@@ -70,17 +91,18 @@ Sell price = (Landed product cost × (1 + volume-tier margin))
 2. **Set `WHATSAPP_NUMBER` and `EMAIL` in `assets/app.js`.**
 3. **Verify VAT treatment and current corporate tax rate** with an auditor, and confirm BOBS Certificate of
    Conformity requirements for each imported garment line (see `../docs/06-compliance-risk-register.md`).
-4. **Add real photography, a logo, and PWA icons** (`assets/icon-192.png`, `assets/icon-512.png` are referenced
-   but not yet created).
+4. **Add real photography, a logo, and proper PWA icons** — `assets/icon-192.png` and `assets/icon-512.png`
+   exist as flat-colour placeholders and are safe to overwrite.
 5. **Add a privacy notice and terms** before collecting any client data; keep personal data minimal and
    Botswana-resident per the Data Protection Act.
-6. **Remove or lock the internal margin panel** if the storefront will ever be shown to a client on-screen.
+6. **Lock or remove the internal margin view** (`<details class="margin">`) before showing the store on a
+   client's screen.
 
 ## Roadmap for this asset
 
 | Phase | Milestone |
 |---|---|
-| v1 (now) | Static storefront + indicative quote engine, deployed free |
+| v1 (now) | Static storefront + live quote builder, deployed free |
 | v2 | Persist quote requests (Cloudflare Workers + D1), CRM export, automated follow-up |
 | v3 | Multi-tenant Client Brand Stores: per-client catalogue, budgets, approval workflow, order history |
 | v4 | Product data API in the spirit of PromoStandards, so other resellers and partners can pull live pricing |

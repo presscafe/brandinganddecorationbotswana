@@ -23,7 +23,9 @@ It is not a generic e-commerce theme any more: it is the operating base for a Bo
 | Plan the digital assets and SEO | [`docs/05-digital-asset-blueprint.md`](docs/05-digital-asset-blueprint.md) |
 | Check compliance and risk exposure | [`docs/06-compliance-risk-register.md`](docs/06-compliance-risk-register.md) |
 | Trace every figure to a source | [`docs/07-sources.md`](docs/07-sources.md) |
-| Work the delivery backlog | [`docs/08-backlog.csv`](docs/08-backlog.csv) (import to Linear/Notion) |
+| Work the delivery backlog | [`docs/08-backlog.csv`](docs/08-backlog.csv) (mirrored into Linear, PRE-12 → PRE-48) |
+| **Use Linear without getting lost** | [`docs/09-linear-guide.md`](docs/09-linear-guide.md) — beginner's guide written for this workspace |
+| See what was decided, and why | [`docs/decisions/`](docs/decisions/) |
 | Launch the storefront | [`store/README.md`](store/README.md) |
 
 ---
@@ -53,18 +55,20 @@ docs/                 Strategy, research, compliance and commercial package
   06-compliance-risk-register.md
   07-sources.md
   08-backlog.csv
+  09-linear-guide.md  Beginner's guide to Linear, mapped to this workspace
+  decisions/          One file per material decision, with rationale and reversal path
   archive/            Original Gatsby theme README (kept for reference)
   sops/               Standard operating procedures (to be written — see backlog BDB-019)
 
 store/                Working storefront + instant quote engine (static PWA, no build step)
-  index.html          Hero, quote engine, catalogue, programme services, partner recruitment
-  assets/app.js       Duty-aware pricing engine (volume tiers, decoration, credit, rush, VAT)
-  assets/styles.css   Mobile-first responsive + print stylesheet for client quotations
+  index.html          Three-step quote builder: pick → brand → fine-tune, with a live answer panel
+  assets/app.js       Duty-aware pricing engine (volume tiers, decoration, credit, rush, VAT) + interface wiring
+  assets/styles.css   Card-based interface, mobile sticky total, print stylesheet for client quotations
   data/catalogue.json Product master, decoration methods, delivery zones, pricing rules
   sw.js, manifest.webmanifest
 
-src/, static/, *.js   The original Gatsby theme (currently unmodified, pending decision — see below)
-cypress/, netlify.toml
+The repository formerly contained the unmodified Gatsby e-commerce theme (src/, static/, cypress/,
+netlify.toml, package.json). It was removed on 15 October 2026 — see "Retired: the original Gatsby theme".
 ```
 
 ---
