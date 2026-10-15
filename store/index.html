@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Branding &amp; Decoration Botswana — Instant Quote</title>
+<meta name="description" content="Programme-grade branding partner in Botswana: branded workwear, PPE, corporate clothing, headwear, corporate gifts and event display. Build an indicative quote in under a minute." />
+<meta name="theme-color" content="#0f3d2e" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="#top">
+      <span class="brand-mark">B&amp;D</span>
+      <span class="brand-text">
+        <strong>Branding &amp; Decoration Botswana</strong>
+        <em>Specified. Branded. Delivered.</em>
+      </span>
+    </a>
+    <nav class="topnav" aria-label="Sections">
+      <a href="#builder">Quote</a>
+      <a href="#catalogue">Catalogue</a>
+      <a href="#programmes">Programmes</a>
+      <a href="#partners">Partners</a>
+    </nav>
+    <span class="badge" title="This is a working prototype: prices are modelled, not offers">Prototype</span>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ OPENING ============ -->
+  <section class="opening">
+    <div class="wrap">
+      <p class="eyebrow">Gaborone · programme-grade branding</p>
+      <h1>Know the price <span class="hl">before</span> you ask.</h1>
+      <p class="lede">
+        Choose what you need, choose how it is branded, and the cost appears as you type — product, decoration,
+        delivery, payment terms and Botswana VAT, all together. No form to email. No waiting for a callback.
+      </p>
+      <div class="hero-points">
+        <span>Embroidery &amp; print in Gaborone</span>
+        <span>Certificate pack per SKU</span>
+        <span>Local value addition for tenders</span>
+        <span>Reordering in three taps</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BUILDER ============ -->
+  <section id="builder" class="builder">
+    <div class="wrap builder-grid">
+
+      <!-- ---- steps ---- -->
+      <div class="steps">
+
+        <!-- Step 1 -->
+        <article class="step" id="step-product">
+          <div class="step-head">
+            <span class="step-num">1</span>
+            <div>
+              <h2>What do you need?</h2>
+              <p class="step-sub">Search by name or pick a category. Prices shown are per unit, before branding.</p>
+            </div>
+          </div>
+
+          <label class="search">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="q-search" type="search" placeholder="Try “vest”, “golf shirt”, “hoodie”, “bottle”…" autocomplete="off" aria-label="Search products" />
+          </label>
+
+          <div class="chip-row" id="q-cat-chips" role="group" aria-label="Filter products by category"></div>
+
+          <div class="plist" id="q-product-list" role="listbox" aria-label="Products"></div>
+
+          <div class="chosen" id="chosen" hidden>
+            <div class="chosen-text">
+              <strong id="chosen-name"></strong>
+              <span class="tiny" id="chosen-meta"></span>
+            </div>
+            <button type="button" class="btn quiet" data-action="clear-product">Change</button>
+          </div>
+        </article>
+
+        <!-- Step 2 -->
+        <article class="step" id="step-brand">
+          <div class="step-head">
+            <span class="step-num">2</span>
+            <div>
+              <h2>How many, and how is it branded?</h2>
+              <p class="step-sub">Branding is usually the smaller cost — the blank garment is the bigger one.</p>
+            </div>
+          </div>
+
+          <div class="qty-line">
+            <label for="q-qty">Quantity</label>
+            <div class="stepper">
+              <button type="button" class="step-btn" data-action="qty-minus" aria-label="Decrease quantity">−</button>
+              <input id="q-qty" type="number" min="1" step="1" value="100" inputmode="numeric" aria-label="Quantity" />
+              <button type="button" class="step-btn" data-action="qty-plus" aria-label="Increase quantity">+</button>
+            </div>
+            <span class="tiny" id="q-qty-note"></span>
+          </div>
+
+          <div class="sub-label">Branding method</div>
+          <div id="decor-options" class="chip-row wrap-row"></div>
+          <p class="tiny" id="decor-empty" hidden>This item is supplied blank — pick another product to add your logo.</p>
+
+          <div class="mini-grid" id="decor-fields">
+            <label class="field" id="q-stitches-wrap">
+              <span>Embroidery size (stitches)</span>
+              <input id="q-stitches" type="number" min="6000" step="1000" value="8000" inputmode="numeric" />
+              <small>8,000 stitches ≈ a left-chest logo</small>
+            </label>
+            <label class="field">
+              <span>Positions</span>
+              <input id="q-positions" type="number" min="1" max="4" step="1" value="1" inputmode="numeric" />
+              <small>Front, back, sleeve…</small>
+            </label>
+            <label class="field" id="screen-colours-wrap" hidden>
+              <span>Print colours</span>
+              <input id="q-colours" type="number" min="1" max="6" step="1" value="2" inputmode="numeric" />
+              <small>Each colour adds a screen setup</small>
+            </label>
+          </div>
+        </article>
+
+        <!-- Step 3 -->
+        <article class="step">
+          <details class="fine">
+            <summary>
+              <span class="step-num small">3</span>
+              <span class="fine-text">
+                <strong>Fine-tune</strong>
+                <span class="tiny" id="fine-summary"></span>
+              </span>
+              <span class="caret" aria-hidden="true">⌄</span>
+            </summary>
+            <div class="fine-body">
+              <div class="mini-grid">
+                <label class="field">
+                  <span>Delivery destination</span>
+                  <select id="q-delivery"></select>
+                  <small>Free above the threshold on larger orders</small>
+                </label>
+                <label class="field">
+                  <span>Payment terms</span>
+                  <select id="q-terms">
+                    <option value="prepay">Prepayment (no surcharge)</option>
+                    <option value="days30">30 days (+2%)</option>
+                    <option value="days60">60 days (+4%)</option>
+                  </select>
+                  <small>Credit is priced in, not hidden</small>
+                </label>
+                <label class="field">
+                  <span>Turnaround</span>
+                  <select id="q-rush">
+                    <option value="standard">Standard lead time</option>
+                    <option value="rush">Rush — 72 hours or less (+20%)</option>
+                  </select>
+                  <small>Rush depends on partner capacity</small>
+                </label>
+                <label class="field">
+                  <span>Quote reference (optional)</span>
+                  <input id="q-client" type="text" placeholder="e.g. North Gate uniform rollout" />
+                  <small>Printed at the top of the quote</small>
+                </label>
+              </div>
+              <p class="tiny">Quote validity <span id="q-validity"></span>. Firm quotes follow verified supplier costs, artwork review and — for first orders — a 50% deposit.</p>
+            </div>
+          </details>
+        </article>
+
+      </div>
+
+      <!-- ---- live answer ---- -->
+      <aside class="rail">
+        <div class="answer" id="quote-output" aria-live="polite">
+          <div class="answer-empty">
+            <div class="pulse" aria-hidden="true"></div>
+            <h3>Your price appears here</h3>
+            <p>Start with step 1. The number updates as you change quantity or branding — nothing to submit.</p>
+          </div>
+        </div>
+        <p class="rail-note">Indicative pricing from modelled costs. Nothing here is a binding offer and nothing is stored or sent while you use this page.</p>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- ============ CATALOGUE ============ -->
+  <section id="catalogue" class="band">
+    <div class="wrap">
+      <h2>A curated range, not a 14,000-SKU catalogue</h2>
+      <p class="band-lede">What we stock or can source reliably, with the branding methods that actually work on each item.</p>
+
+      <label class="search">
+        <span class="search-icon" aria-hidden="true">⌕</span>
+        <input id="c-search" type="search" placeholder="Search the catalogue…" autocomplete="off" aria-label="Search the catalogue" />
+      </label>
+      <div class="chip-row" id="c-cat-chips" role="group" aria-label="Filter the catalogue by category"></div>
+      <div id="catalogue-grid" class="cards"></div>
+      <p class="tiny" id="catalogue-count"></p>
+    </div>
+  </section>
+
+  <!-- ============ PROGRAMMES ============ -->
+  <section id="programmes" class="band alt">
+    <div class="wrap">
+      <h2>Programmes, not one-off orders</h2>
+      <p class="band-lede">The work that compounds for both sides: a specification we keep, a schedule we hold, and paperwork that survives an audit.</p>
+      <div class="cards three">
+        <article class="card">
+          <h3>Branded workwear programme</h3>
+          <p>Annual specification, size matrix per department and site, three collections a year, stockholding of your top twelve lines, quarterly consumption reporting.</p>
+          <p class="tiny">Banks, telcos, retailers, hospitality, schools.</p>
+        </article>
+        <article class="card">
+          <h3>PPE issue-set programme</h3>
+          <p>Site specification, kitted and labelled per worker, delivered to the gate on schedule, with the certificate pack your safety file requires.</p>
+          <p class="tiny">Mining, construction, contractors, utilities.</p>
+        </article>
+        <article class="card">
+          <h3>Client Brand Store</h3>
+          <p>An online store carrying only your approved items, with budgets per department, approval workflow and spend reporting. Reordering becomes effortless.</p>
+          <p class="tiny">Multi-site organisations with recurring uniform and merchandise spend.</p>
+        </article>
+        <article class="card">
+          <h3>Corporate gifting retainer</h3>
+          <p>Quarterly curated gift drops to a defined list — kitted, branded and delivered, with the budget smoothed across the year.</p>
+          <p class="tiny">Marketing, HR, investor relations.</p>
+        </article>
+        <article class="card">
+          <h3>Event &amp; activation kit</h3>
+          <p>Merchandise, branding, gazebos, flags and on-site setup, delivered to a hard deadline.</p>
+          <p class="tiny">Launches, conferences, expos, community events.</p>
+        </article>
+        <article class="card">
+          <h3>Tender &amp; compliance pack</h3>
+          <p>Specification drafting, local value-addition statement, certificate compilation and bid documentation support.</p>
+          <p class="tiny">PPRA/IPMS tenders and mine supplier registration.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PARTNERS ============ -->
+  <section id="partners" class="band">
+    <div class="wrap two-col">
+      <div>
+        <h2>Partner network</h2>
+        <p class="band-lede">Vetted decorators, cut-make-trim factories, signage specialists and delivery partners across Botswana. Every partner works to a written scope, a QC checklist and a monthly scorecard.</p>
+        <h3 class="sub-head">Why partners join</h3>
+        <ul class="ticks">
+          <li>Routed jobs you would not win alone</li>
+          <li>Artwork, digitising and specification supplied</li>
+          <li>Invoicing and collections handled by us</li>
+          <li>Payment within 30 days of client receipt</li>
+          <li>Published scorecard — high performers get priority volume</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Apply to join</h3>
+        <p>Tell us your machines, capacity, location and references. We audit quality with a paid trial job before onboarding.</p>
+        <p><button type="button" class="btn primary" id="partner-cta">Register interest</button></p>
+        <p class="tiny">Partner terms: written subcontract, QC annexure, confidentiality, public liability evidence, three-strike quality rule.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- sticky mobile total -->
+<div class="mobile-bar" id="mobile-bar" hidden>
+  <div class="mobile-total">
+    <span class="tiny">Total incl. VAT</span>
+    <strong id="mobile-total">P0</strong>
+  </div>
+  <div class="mobile-actions">
+    <button type="button" class="btn ghost" data-action="see-answer">Breakdown</button>
+    <button type="button" class="btn primary" data-action="whatsapp">Send on WhatsApp</button>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <strong>Branding &amp; Decoration Botswana</strong>
+      <p class="tiny">Gaborone, Botswana · Quotations valid 14 days · Prices exclude VAT unless stated</p>
+    </div>
+    <div>
+      <strong>Buyer information</strong>
+      <p class="tiny">This prototype store demonstrates an indicative pricing engine. Nothing here constitutes a binding offer. Confirm final pricing in writing before ordering.</p>
+    </div>
+    <div>
+      <strong>Data &amp; privacy</strong>
+      <p class="tiny">This page stores nothing on our servers and sends no data anywhere. Quotes are generated in your browser.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/app.js" defer></script>
+</body>
+</html>

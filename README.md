@@ -1,213 +1,120 @@
-![Gatsby E-commerce theme designed by Matter](https://user-images.githubusercontent.com/43764894/223762927-2e463570-b09a-4d51-ab81-2e0fa8aa2c70.png)
+# Branding & Decoration Botswana
 
-This beautiful theme from the [Matter Design Team](https://matterdesign.com.au/) gives you the styling and scaffolding for your next e-commerce site. You can customize to your heart's content and add the tooling for cart, transactions, product, and more. This theme uses:
+**Programme-grade branding partner for Botswana** — branded workwear, PPE, corporate clothing, headwear,
+corporate gifts and event display.
 
-- [Gatsby](https://www.gatsbyjs.com/)
-- [CSS Modules](https://github.com/css-modules/css-modules)
-- [Prettier](https://prettier.io/)
-- [React Helmet](https://github.com/nfl/react-helmet)
+> *Specified. Branded. Delivered. Every site, every time.*
 
-Take a look at the screenshot below or preview the live site here: https://gatsby-ecommerce-theme.netlify.app/!
-![full page screenshot](https://res.cloudinary.com/dzkoxrsdj/image/upload/v1653371030/CleanShot_2022-05-24_at_01.11.52_2x_bspa8c.jpg)
+This repository holds the commercial strategy package and the working digital front door for the enterprise.
+It is not a generic e-commerce theme any more: it is the operating base for a Botswana business that
+**orchestrates** supply, decoration, partner capacity and delivery instead of owning a warehouse full of stock.
 
-> 🧐 Please be aware that some aspects of this theme are not fully functional and will need to be integrated with the recommended tooling mentioned at the end of the [README](#next-steps-with-this-theme). 
+---
 
-## Table of Contents:
+## Start here
 
-- [Quick Steps + Deploy Options](#quick-setup--deploy-option)
-  - [Cloning + Installing Packages](#cloning--installing-packages)
-- [Deploying](#deploying)
-- [Project Structure](#project-structure)
-  - [Making Changes to the Hero Component](#making-changes-to-the-hero-component)
-  - [Making Changes to the Header or Footer](#making-content-changes-to-the-header-or-footer)
-- [Testing](#testing)
-  - [Included Default Testing](#included-default-testing)
-  - [Removing Renovate](#removing-renovate)
-  - [Removing Cypress](#removing-cypress)
-- [Next Steps with This Theme](#next-steps-with-this-theme)
+| If you want to… | Open |
+|---|---|
+| Understand the whole strategy in one sitting | [`docs/00-executive-brief.md`](docs/00-executive-brief.md) |
+| See the market evidence | [`docs/01-market-research-ssa-2026.md`](docs/01-market-research-ssa-2026.md) |
+| Know exactly who you are up against | [`docs/02-competitive-map.md`](docs/02-competitive-map.md) |
+| Understand how the business actually runs | [`docs/03-orchestration-operating-model.md`](docs/03-orchestration-operating-model.md) |
+| See the numbers, margins and capital plan | [`docs/04-commercial-model-unit-economics.md`](docs/04-commercial-model-unit-economics.md) |
+| Plan the digital assets and SEO | [`docs/05-digital-asset-blueprint.md`](docs/05-digital-asset-blueprint.md) |
+| Check compliance and risk exposure | [`docs/06-compliance-risk-register.md`](docs/06-compliance-risk-register.md) |
+| Trace every figure to a source | [`docs/07-sources.md`](docs/07-sources.md) |
+| Work the delivery backlog | [`docs/08-backlog.csv`](docs/08-backlog.csv) (mirrored into Linear, PRE-12 → PRE-48) |
+| **Use Linear without getting lost** | [`docs/09-linear-guide.md`](docs/09-linear-guide.md) — beginner's guide written for this workspace |
+| See what was decided, and why | [`docs/decisions/`](docs/decisions/) |
+| Launch the storefront | [`store/README.md`](store/README.md) |
 
-## Quick Setup + Deploy Option
+---
 
-Click the button below and it will help you create a new repo, create a new Netlify project, and deploy this Theme!
+## The one-paragraph thesis
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/gatsby-ecommerce-theme&utm_source=github&utm_medium=matter-design-theme-repo&utm_campaign=template-team)
+Amrod, Barron and the South African distributor layer own catalogue breadth and landed cost, and they are
+**trade-only** — they sell to resellers, not to corporates. Botswana's local market is split between commodity
+PPE distributors with no branding capability and micro print shops that cannot carry a 600-unit multi-site
+rollout. The gap in the middle — specification, compliant sourcing, quality decoration, kitting, multi-site
+delivery, replenishment and digital reordering — is unoccupied. This enterprise occupies it: own the decoration
+capacity and the orchestration system, rent the supply and the logistics, and monetise through decoration
+margin, programme contracts and Client Brand Stores.
 
-## Regular Setup
+---
 
- ### Cloning + Installing Packages
- 
-  - Clone this repo with one of these options:
+## What is in this repo
 
-    - Click the 'Use this template' button at the top of the page
-    - Via the command line:
-       ```shell
-       git clone https://github.com/netlify-templates/gatsby-ecommerce-theme/
-       ```
-    - Or you can clone the theme straight from the Netlify CLI, using the `netlify sites:create-template` command in your terminal ([learn more about this command here](https://www.netlify.com/blog/create-a-site-from-a-template-using-the-netlify-cli)) to do the entire flow for you.
+```
+docs/                 Strategy, research, compliance and commercial package
+  00-executive-brief.md
+  01-market-research-ssa-2026.md
+  02-competitive-map.md
+  03-orchestration-operating-model.md
+  04-commercial-model-unit-economics.md
+  05-digital-asset-blueprint.md
+  06-compliance-risk-register.md
+  07-sources.md
+  08-backlog.csv
+  09-linear-guide.md  Beginner's guide to Linear, mapped to this workspace
+  decisions/          One file per material decision, with rationale and reversal path
+  archive/            Original Gatsby theme README (kept for reference)
+  sops/               Standard operating procedures (to be written — see backlog BDB-019)
 
-  From there, you can install the project's dependencies by running:
+store/                Working storefront + instant quote engine (static PWA, no build step)
+  index.html          Three-step quote builder: pick → brand → fine-tune, with a live answer panel
+  assets/app.js       Duty-aware pricing engine (volume tiers, decoration, credit, rush, VAT) + interface wiring
+  assets/styles.css   Card-based interface, mobile sticky total, print stylesheet for client quotations
+  data/catalogue.json Product master, decoration methods, delivery zones, pricing rules
+  sw.js, manifest.webmanifest
 
-  ```shell
-  npm install or yarn install
-  ```
-
-  Finally, you can run your project locally with:
-
-  ```shell
-  cd gatsby-sydney-ecommerce-theme/
-  npm start or yarn start
-  ```
-  
-  or, run it using the Netlify CLI with:
-  
-  ```shell
-  netlify run dev
-  ```
-  
-  Open your browser and visit <http://localhost:5000>, your project should now be running!
-  
-  ## Deploying
- 
-  After installing and customizing your new e-commerce theme it's now time to deploy! 
-  
-   -  You can Deploy using the [Netlify CLI](https://cli.netlify.com/):
-
-      ```bash
-      netlify init # initialize a new Netlify project & deploy
-      ```
-
-   It will use the information from the included Netlify configuration file, [`netlify.toml`](./netlify.toml), to set up the build command as `gatsby build` to create a static project and locate the build project in the `public` directory.
-
-   The `init` process will also set up continuous deployment for your project so that a new build will be triggered & deployed when you push code to the repo (you can change this from your project dashboard: Site Settings/Build & deploy/Continuous Deployment).
-
-   You can also use `netlify deploy (--prod)` to manually deploy and `netlify open` to open your project dashboard.
-
-  > 💡 we only have so many keystrokes to give, use `ntl` shorthand for `netlify` or make [an alias of your own](https://www.netlify.com/blog/2020/04/12/speed-up-productivity-with-terminal-aliases/) to save hours...of accumulated milliseconds
-
-  - You can deploy within the Netlify site by connecting to git, this [video](https://www.youtube.com/watch?v=4h8B080Mv4U&t=107s) will walk you through that process. 
-  - Or, you can use the Deploy to Netlify button which will walk you through the process of spinning up a repo, creating a new project in Netlify, AND deploying it :)
-
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/netlify-templates/gatsby-ecommerce-theme&utm_source=github&utm_medium=matter-design-theme-repo&utm_campaign=template-team)
-
-## Project Structure
-
-Here is a bit of an overview of the directory structure of the project:
-
-| Directory | Description |
-| :---- | :---- |
-| `src/components/` | Stores reusable elements across the site. (e.g. BlogPreview element) |
-| `src/pages/` | Stores routes for a user to go to based on each `.js` file and nested folder (e.g. `src/pages/about.js` creates a route `/about` in the web app) |
-| `src/helpers` | Stores mock data for the blog or product list and general utility functions. |
-
-### Making changes to the Hero component
-
-On the homepage of the website and a few other places, there is a full-width image component. We refer to this as the `<Hero/>` component. Here is a bit of an overview of what its API looks like:
-
-```jsx
-<Hero
-  maxWidth='500px' // how big the image's maxumim should be
-  image={'/banner1.png'} // the source location for the image
-  title={'Essentials for a cold winter'} // the main text displayed
-  subtitle={'Discover Autumn Winter 2021'} // text found below the main text
-  ctaText={'shop now'} // the presented text for a user to click on
-  ctaAction={goToShop} // the location the call-to-action text directs users
-/>
+The repository formerly contained the unmodified Gatsby e-commerce theme (src/, static/, cypress/,
+netlify.toml, package.json). It was removed on 15 October 2026 — see "Retired: the original Gatsby theme".
 ```
 
-You can see it in action under [`src/pages/index.js`](./src/pages/index.js) or see the component in [`src/components/Hero/Hero.js`](./src/components/Hero/Hero.js).
+---
 
-### Making content changes to the Header or Footer
-
-The project contains a file named `src/config.json`. Inside of this file describes the content of the header links (`headerLinks`) as well as the footer links (`footerLinks`). For the header, each element in the array has a base structure of:
-
-```json
-{
-  "menuLabel": "The label that is given to a user",
-  "menuLink": "The URL that this should take a user to"
-}
-```
-
-If you want the menu item to have a dropdown, you can also add a `category` key with the value being an array of the categories and their containing elements, here's what the base could look like:
-
-```json
-{
-  "menuLabel": "The label that is given to a user",
-  "menuLink": "The URL that this should take a user to",
-  "category": [
-    {
-      "categoryLabel": "Label you want the category to have",
-      "submenu": [
-        {
-          "menuLabel": "A label underneath the category",
-          "menuLink": "The associated link to this label"
-        }
-      ]
-    }
-  ]
-}
-```
-
-The footer works in a similar way. It assumes each element in the array has a heading and an array of associated links to direct folks to:
-
-```json
-"footerLinks": [
-    {
-      "subTitle": "Label of the column in the footer",
-      "links": [
-        {
-          "text": "Text to display to the user",
-          "link": "URL of where to take the user to when clicked"
-        },
-      ]
-    }
-]
-```
-
-## Testing
-
-### Included Default Testing
-
-We’ve included some tooling that helps us maintain these templates. This template currently uses:
-
-- [Renovate](https://www.mend.io/free-developer-tools/renovate/) - to regularly update our dependencies
-- [Cypress](https://www.cypress.io/) - to run tests against how the template runs in the browser
-- [Cypress Netlify Build Plugin](https://github.com/cypress-io/netlify-plugin-cypress) - to run our tests during our build process
-
-If your team is not interested in this tooling, you can remove them with ease!
-
-### Removing Renovate
-
-In order to keep our project up-to-date with dependencies we use a tool called [Renovate](https://github.com/marketplace/renovate). If you’re not interested in this tooling, delete the `renovate.json` file and commit that onto your main branch.
-
-### Removing Cypress
-
-For our testing, we use [Cypress](https://www.cypress.io/) for end-to-end testing. This makes sure that we can validate that our templates are rendering and displaying as we’d expect. By default, we have Cypress not generate deploy links if our tests don’t pass. If you’d like to keep Cypress and still generate the deploy links, go into your `netlify.toml` and delete the plugin configuration lines:
-
-```diff
-[[plugins]]
-  package = "netlify-plugin-cypress"
--  [plugins.inputs.postBuild]
--    enable = true
--
--  [plugins.inputs]
--    enable = false
-```
-
-If you’d like to remove the `netlify-plugin-cypress` build plugin entirely, you’d need to delete the entire block above instead. And then make sure sure to remove the package from the dependencies using:
+## Run the storefront locally
 
 ```bash
-npm uninstall -D netlify-plugin-cypress
+cd store
+python3 -m http.server 8080     # then open http://localhost:8080
 ```
 
-And lastly if you’d like to remove Cypress entirely, delete the entire `cypress` folder and the `cypress.config.ts` file. Then remove the dependency using:
+Deploy free on Cloudflare Pages with **no build command** and **output directory `store`**. See
+`store/README.md` for the full checklist, including everything that must be replaced before this touches a
+real customer.
 
-```bash
-npm uninstall cypress
-```
+---
 
-## Next Steps with this theme
+## Status and the next action
 
-This project is intended to be extended by you! We wanted to make possible to replace parts of it with your own tools and data sources. If you're interested on a direction, you can refer to Matter's [how to use section](https://gatsby-ecommerce-theme.netlify.app/how-to-use/) in this project or you may want to consider using [Matter's toolset with their JAMM framework](https://matterdesign.com.au/service/headless-commerce-with-jamm/) which includes some projects like:
-- [BigCommerce](https://bigcommerce.zfrcsk.net/c/2429593/854992/2941) for a headless e-commerce solution
-- [Builder](https://www.builder.io) as a CMS for the blog articles or other content creation
-- [Klaviyo](https://www.klaviyo.com/) for any email or SMS marketing automation
+**Current status: pre-revenue. Strategy package and digital prototype complete. Nothing has been sold yet.**
+
+The single next action (from the executive brief):
+
+> **Complete five supplier quotation rounds — one Amrod Botswana trade account, one SA stockist, one China
+> agent, one Botswana cut-make-trim factory, one local competitor-turned-partner — and cost four real client
+> jobs end-to-end using the quote engine in `store/`.**
+
+That converts every modelled number in `docs/04-commercial-model-unit-economics.md` from *estimate* to
+*evidence*. It costs time and transport, not capital.
+
+---
+
+## Retired: the original Gatsby theme
+
+This repository began life as an unmodified Netlify/Matter Gatsby e-commerce theme. That theme was **retired on
+15 October 2026** — mock data, demo branding, Cypress scaffolding and a build pipeline that produced nothing of
+commercial value. The storefront of record is the zero-build static PWA in `store/`.
+
+The full rationale, what was removed, the exact commit to restore from, and the trigger conditions for a future
+Astro migration are recorded in [`docs/decisions/2026-10-15-retire-gatsby-theme.md`](docs/decisions/2026-10-15-retire-gatsby-theme.md).
+
+## Non-negotiables
+
+1. No counterfeit, grey-market or untraceable safety equipment — traceability or no supply.
+2. No improper inducements, no bid manipulation, no informal commissions to procurement staff.
+3. Every quoted figure traceable to a verified cost; quotes carry 14-day validity and stated exclusions.
+4. Personal data minimised, access-controlled, with a Botswana-resident copy (Data Protection Act 2024).
+5. Nothing in this repository is legal, tax or compliance advice — verify with qualified professionals in
+   Botswana before relying on it.
