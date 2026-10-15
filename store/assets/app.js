@@ -53,6 +53,7 @@ function calculate({ product, qty, decorIds, stitches, positions, colours, deliv
 
   // 2. Decoration lines
   const decorLines = [];
+  const methodWarnings = [];
   let decorSellTotal = 0;
   let decorCostTotal = 0;
   let setupTotal = 0;
@@ -60,6 +61,10 @@ function calculate({ product, qty, decorIds, stitches, positions, colours, deliv
   for (const id of decorIds) {
     const d = decorById(id);
     if (!d) continue;
+
+    if (d.minQty && qty < d.minQty) {
+      methodWarnings.push(`${d.label} is economical from ${d.minQty} units — at ${qty} units we would consolidate with another run or switch method. Confirm before ordering.`);
+    }
 
     let unitPrice = 0, unitCost = 0, setup = 0, label = d.label;
 
@@ -124,7 +129,7 @@ function calculate({ product, qty, decorIds, stitches, positions, colours, deliv
   const grossMarginPct = subtotalExVat > 0 ? grossProfit / subtotalExVat : 0;
 
   return {
-    qty, margin,
+    qty, margin, methodWarnings,
     product: { cost: productCost, sell: productSell, unitSell: productSell / qty },
     decorLines, decorSellTotal, decorCostTotal, setupTotal,
     creditRate, creditSurcharge, rushSurcharge,
@@ -152,6 +157,7 @@ function renderQuote(q, meta) {
   if (meta.rush === "rush" && product.lead_days > 3) warnings.push("Rush turnaround requires partner capacity confirmation — we will revert within 4 working hours.");
   if (q.subtotalExVat < state.data.config.min_order_value) warnings.push(`Minimum order value is ${money(state.data.config.min_order_value)}. Small runs may be consolidated or collected to reduce cost.`);
   if (!meta.decorIds.length) warnings.push("No decoration selected — this quote is for blank product only.");
+  (q.methodWarnings || []).forEach((w) => warnings.push(w));
 
   const validUntil = new Date();
   validUntil.setDate(validUntil.getDate() + state.data.config.quote_validity_days);
