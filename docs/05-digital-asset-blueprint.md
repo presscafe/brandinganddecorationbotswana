@@ -89,7 +89,16 @@ Each step is an asset. Nothing is a "campaign".
 | Data protection | Botswana-resident copy of customer PII; minimise PII collected; encrypt backups | Data Protection Act 2024 requirements [S25][S26][S27] |
 | Store platform (multi-tenant) | Static per-tenant build generated from one product master + Brand Vault data | Cheap, fast, secure, easy to licence to other resellers later |
 
-**On the existing Gatsby repo:** it is currently an **unmodified Netlify "Gatsby Sydney Ecommerce Theme"** with mock data, a demo `siteUrl` (`jamm.matter.design`), template README, Cypress scaffolding and placeholder Netlify config — **no Botswana content, no products, no brand, no licence**. Verdict: **REPURPOSE.** Keep it for the eventual content-heavy site, but do not let Gatsby 4 + dated tooling gate your launch. Ship the zero-build static PWA now; migrate to Astro/Gatsby only when the content library justifies a build step. Adding a `LICENSE`, an accurate `README.md`, and CI (link check + Lighthouse check) is a two-hour job worth doing.
+**On the existing Gatsby repo (decision taken 15 October 2026): RETIRED.** The theme was unmodified — mock data,
+demo `siteUrl` (`jamm.matter.design`), template copy, Cypress scaffolding, a `netlify.toml` expecting `gatsby build`,
+and no licence. It gated nothing, shipped nothing and duplicated a front door the business did not need. It has been
+removed, with the rationale, removal manifest, restoration commit and migration triggers recorded in
+`docs/decisions/2026-10-15-retire-gatsby-theme.md`.
+
+**Migration trigger:** move `store/` to Astro when any two of these are true — the content library passes 25 pages;
+quote requests exceed 60/month and need server-side persistence or payments; a Client Brand Store requires
+multi-tenant builds from Brand Vault data; or two or more network partners consume the product master via API.
+Until then, adding a build step is structure for its own sake.
 
 ---
 

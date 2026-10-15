@@ -97,18 +97,14 @@ That converts every modelled number in `docs/04-commercial-model-unit-economics.
 
 ---
 
-## About the original Gatsby theme (kept, not yet used)
+## Retired: the original Gatsby theme
 
-The repository began life as an unmodified [Netlify/Matter Gatsby e-commerce theme](docs/archive/README.gatsby-ecommerce-theme.md)
-(sample data, placeholder imagery, no Botswana content, no licence file). It is retained because the eventual
-content-heavy site may re-use it, but it does not gate the launch:
+This repository began life as an unmodified Netlify/Matter Gatsby e-commerce theme. That theme was **retired on
+15 October 2026** — mock data, demo branding, Cypress scaffolding and a build pipeline that produced nothing of
+commercial value. The storefront of record is the zero-build static PWA in `store/`.
 
-- **Recommended:** ship the zero-build static PWA in `store/` now; migrate to Astro when the content library
-  justifies a build step. Rationale, options and trade-offs are in `docs/05-digital-asset-blueprint.md`, §5.
-- If the Gatsby site is kept: fix `siteUrl` in `gatsby-config.js`, replace the mock data source, add a `LICENSE`,
-  and add CI (link check + Lighthouse budget).
-
----
+The full rationale, what was removed, the exact commit to restore from, and the trigger conditions for a future
+Astro migration are recorded in [`docs/decisions/2026-10-15-retire-gatsby-theme.md`](docs/decisions/2026-10-15-retire-gatsby-theme.md).
 
 ## Non-negotiables
 

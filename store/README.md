@@ -5,11 +5,11 @@ engine. It runs from any static host, works offline once loaded, and stores noth
 
 ## Why this exists
 
-The main repository is an unmodified Gatsby/Netlify e-commerce theme with mock data — it cannot be launched
-without a build toolchain, and it contains no Botswana content. This prototype ships a usable commercial front
-door **today**, on free infrastructure, without locking the business into a framework. When the content library
-justifies a build step, migrate this design into Astro (recommended) or modernise the Gatsby site — the data
-model here (`data/catalogue.json`) is portable either way.
+The original Gatsby/Netlify e-commerce theme was **retired on 15 October 2026** (see
+`../docs/decisions/2026-10-15-retire-gatsby-theme.md`). It could not be launched without a build toolchain and
+contained no Botswana content. This prototype ships a usable commercial front door **today**, on free
+infrastructure, without locking the business into a framework. When the content library justifies a build step,
+migrate this design to Astro — the data model here (`data/catalogue.json`) is portable.
 
 ## Run it locally
 
