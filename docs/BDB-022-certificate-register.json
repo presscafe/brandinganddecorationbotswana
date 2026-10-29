@@ -1,0 +1,7 @@
+[
+  {"sku":"c07","name":"Conti suit","standard":"SANS 434 / EN ISO 20471 (hi-vis)","issuer":"Bureau Veritas (CoC) / supplier MTR","expiry":"2027-06-30","file_link":"docs/certs/c07-conti-coc.pdf","status":"modelled - needs filed cert"},
+  {"sku":"p01","name":"Latex gloves","standard":"EN 388 / EN ISO 21420","issuer":"Supplier test report","expiry":"2027-03-15","file_link":"docs/certs/p01-gloves-en388.pdf","status":"modelled"},
+  {"sku":"p03","name":"Hard hat","standard":"EN 397","issuer":"Supplier + BOBS CoC where import","expiry":"2027-09-01","file_link":"docs/certs/p03-hardhat-en397.pdf","status":"modelled"},
+  {"sku":"p05","name":"Safety boot S3","standard":"EN ISO 20345 S3","issuer":"Supplier test report","expiry":"2027-08-10","file_link":"docs/certs/p05-boot-s3.pdf","status":"modelled"},
+  {"sku":"c01","name":"Golf shirt pique","standard":"OEKO-TEX 100 / SANS 10011 colourfastness","issuer":"Mill cert","expiry":"2027-12-31","file_link":"docs/certs/c01-golf-oekotex.pdf","status":"modelled"}
+]

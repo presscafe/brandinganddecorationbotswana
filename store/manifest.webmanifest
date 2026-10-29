@@ -1,14 +1,20 @@
 {
-  "name": "Branding & Decoration Botswana — Quote Engine",
+  "name": "Branding & Decoration Botswana \u2014 Quote Engine",
   "short_name": "B&D Botswana",
-  "description": "Programme-grade branding partner in Botswana: branded workwear, PPE, corporate clothing, headwear, corporate gifts and event display. Instant indicative quote. Offline-first.",
+  "description": "Branding & Decoration Botswana: branded workwear, PPE, corporate clothing, headwear, gifts & event display. Instant quote, offline-first, Jwaneng & Gaborone delivered.",
   "start_url": "./",
   "scope": ".",
   "display": "standalone",
-  "display_override": ["standalone", "minimal-ui"],
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
   "background_color": "#ffffff",
   "theme_color": "#0f3d2e",
-  "categories": ["business", "shopping"],
+  "categories": [
+    "business",
+    "shopping"
+  ],
   "lang": "en",
   "dir": "ltr",
   "orientation": "any",
@@ -33,7 +39,7 @@
       "src": "assets/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "label": "Instant quote builder — know the price before you ask"
+      "label": "Instant quote builder \u2014 know the price before you ask"
     }
   ],
   "shortcuts": [
@@ -42,28 +48,63 @@
       "short_name": "Quote",
       "description": "Build an indicative quote in under a minute",
       "url": "./#builder",
-      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
       "name": "Catalogue",
       "short_name": "Catalogue",
       "description": "Browse 50+ SKUs across workwear, PPE, gifts and display",
       "url": "./#catalogue",
-      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     },
     {
-      "name": "Admin — CMS + ERP",
+      "name": "Admin \u2014 CMS + ERP",
       "short_name": "Admin",
       "description": "Manage catalogue, suppliers, quotes, vendors and stock (offline-first)",
       "url": "./admin.html",
-      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "BOBS CoC Compliance",
+      "short_name": "CoC",
+      "description": "Certificate of Conformity for garments \u2014 how we pass where others are held at border",
+      "url": "./seo/bob-compliance-garments.html",
+      "icons": [
+        {
+          "src": "assets/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ],
   "share_target": {
     "action": "./admin.html",
     "method": "GET",
-    "params": { "title": "title", "text": "text", "url": "url" }
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
   },
-  "launch_handler": { "client_mode": "auto" },
-  "edge_side_panel": { "preferred_width": 420 }
+  "launch_handler": {
+    "client_mode": "auto"
+  },
+  "edge_side_panel": {
+    "preferred_width": 420
+  }
 }

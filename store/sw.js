@@ -1,9 +1,9 @@
-/* Branding & Decoration Botswana — offline-first PWA (v2)
+/* Branding & Decoration Botswana — offline-first PWA (v3 — 12 SEO pages)
    Strategy: app shell cache-first, data stale-while-revalidate, admin + ERP cached.
    Free, no backend. IndexedDB holds CMS/ERP data; SW serves the shell offline.
    Bump CACHE_VERSION whenever shell or core data changes.
 */
-const CACHE_VERSION = "bdb-v2";
+const CACHE_VERSION = "bdb-v3";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -20,6 +20,12 @@ const APP_SHELL = [
   "./data/suppliers.json",
   "./data/vendors.json",
   "./manifest.webmanifest",
+  "./seo/embroidered-workwear-botswana.html",
+  "./seo/ppe-supplier-gaborone.html",
+  "./seo/corporate-gifts-botswana.html",
+  "./seo/jwaneng-mining-workwear.html",
+  "./seo/bob-compliance-garments.html",
+  "./seo/local-content-tender-botswana.html",
   "./assets/icon-192.png",
   "./assets/icon-512.png"
 ];
