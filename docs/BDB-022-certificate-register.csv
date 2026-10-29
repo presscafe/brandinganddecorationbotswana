@@ -1,0 +1,6 @@
+sku,product_name,supplier_id,certificate_id,standard,issuer,issue_date,expiry_date,file_link_drive,verified_by,notes
+w03,Hi-vis vest (EN ISO 20471 Class 2),jonsson_sa,SABS-20471-2025-012,EN ISO 20471 Class 2,SABS,2025-03-15,2028-03-15,https://drive.google.com/...,,Attach <4 min per quote
+w02,D59 flame-retardant boiler suit,barron_sa,BOBS-CoC-2026-FR-088,EN ISO 11612,BOBS,2026-01-20,2027-01-20,https://drive.google.com/...,,Mining requirement Reg 77
+w06,Safety boot (steel toe),industrial_clothing_sa,EN-20345-2025-44,EN ISO 20345 S3,SABS,2025-06-01,2028-06-01,https://drive.google.com/...,,Steel toe + puncture
+w08,Hard hat (ABS ratchet),industrial_clothing_sa,EN-397-2025-HH-11,EN 397,SABS,2025-02-10,2028-02-10,https://drive.google.com/...,,ABS shell + harness
+m04,Insulated water bottle 500ml,jasani_ae,FOOD-GRADE-2026-77,FDA/LFGB,Jasani,2026-02-01,2029-02-01,https://drive.google.com/...,,Gift — no PPE risk
