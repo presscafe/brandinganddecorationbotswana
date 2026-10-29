@@ -9,10 +9,12 @@
    4. One job per card: pick → brand → fine-tune. */
 
 const CONFIG = {
-  // Set to a full international number (no + or spaces) to route enquiries directly,
-  // e.g. "2677XXXXXXX". Empty = open WhatsApp's contact picker.
+  // PRODUCTION BLOCKER — replace both before any outreach or paid traffic.
+  // WHATSAPP_NUMBER: full international number without + or spaces, e.g. "26774000000"
+  //   (Gaborone mobile). Empty = opens WhatsApp's contact picker — do not ship empty.
+  // EMAIL: monitored inbox that replies within 4 working hours, e.g. "quotes@brandinganddecoration.co.bw"
   WHATSAPP_NUMBER: "",
-  EMAIL: "quotes@example.co.bw" // replace with the live address before publishing
+  EMAIL: "quotes@example.co.bw"
 };
 
 const state = {
