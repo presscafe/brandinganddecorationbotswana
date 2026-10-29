@@ -19,11 +19,13 @@ const CONFIG = {
 
 const state = {
   data: null,
+  suppliers: null,      // supplier registry (orchestration layer)
   product: null,        // selected product object
   decor: [],            // selected decoration method ids
   catFilter: "",        // builder category filter
   catSearch: "",        // builder search term
   catCatalogue: "",     // catalogue category filter
+  catSupplier: "",      // catalogue supplier lane filter
   lastQuote: null
 };
 
@@ -36,9 +38,48 @@ const num = (v, fallback) => (Number.isFinite(Number(v)) ? Number(v) : fallback)
 /* ---------------- data loading ---------------- */
 
 async function loadData() {
-  const res = await fetch("data/catalogue.json", { cache: "no-cache" });
-  if (!res.ok) throw new Error("Could not load catalogue data");
-  state.data = await res.json();
+  // Offline-first: try IndexedDB (ERP) first, then network JSON, then cache
+  let cat = null;
+  try {
+    if (window.BDB_DB) {
+      const prods = await BDB_DB.getAll('products');
+      const cfg = await BDB_DB.get('settings', 'config');
+      const del = await BDB_DB.get('settings', 'delivery');
+      const dec = await BDB_DB.get('settings', 'decoration');
+      if (prods && prods.length && cfg && del) {
+        // Reconstitute catalogue shape from DB
+        cat = { products: prods.map(({_source,_seeded_at,_updated_at,_suppliers, suppliers, ...r})=> ({...r, suppliers: suppliers||_suppliers||[]})), config: cfg.value, delivery: del.value, decoration: (dec && dec.value) || null };
+        if (!cat.decoration) {
+          const resDec = await fetch("data/catalogue.json", { cache: "no-cache" });
+          const orig = await resDec.json(); cat.decoration = orig.decoration;
+        }
+        // attach meta
+        cat._meta = { note: "LIVE from IndexedDB (ERP)", currency: "BWP", updated: new Date().toISOString().slice(0,10) };
+      }
+    }
+  } catch (e) { console.warn('DB load failed, falling back to fetch', e); }
+  if (!cat) {
+    const res = await fetch("data/catalogue.json", { cache: "no-cache" });
+    if (!res.ok) throw new Error("Could not load catalogue data");
+    cat = await res.json();
+  }
+  state.data = cat;
+  // Load supplier registry (non-blocking, enriches UI)
+  try {
+    const sres = await fetch("data/suppliers.json", { cache: "no-cache" });
+    if (sres.ok) state.suppliers = await sres.json();
+  } catch {}
+  // Also try supplier DB overlay if BDB_DB present
+  try {
+    if (window.BDB_DB) {
+      const supDB = await BDB_DB.getAll('suppliers');
+      if (supDB && supDB.length && state.suppliers) {
+        // DB wins for status/channel freshness
+        const map = new Map(supDB.map(s=> [s.id, s]));
+        state.suppliers.suppliers = state.suppliers.suppliers.map(s=> map.has(s.id) ? {...s, ...map.get(s.id)} : s);
+      }
+    }
+  } catch {}
 }
 
 /* ---------------- pricing engine (unchanged from the verified version) ---------------- */
@@ -476,25 +517,45 @@ function renderCatalogueChips() {
   $("#c-cat-chips").innerHTML = ["", ...cats]
     .map((c) => `<button type="button" class="chip filter ${state.catCatalogue === c ? "selected" : ""}" data-ccat="${escapeHtml(c)}">${c || "All"}</button>`)
     .join("");
+  const supEl = $("#c-supplier-chips");
+  if (supEl) {
+    const suppliers = (state.suppliers && state.suppliers.suppliers) || [];
+    const laneLabels = { amrod_bw: "Amrod BW", barron_sa: "Barron", jonsson_sa: "Jonsson", industrial_clothing_sa: "Industrial", twentyfour_sa: "TwentyFour", jasani_ae: "Jasani", china_agent: "China", local_ctm_bw: "Local CMT", local_stock_bw: "Buffer" };
+    const lanes = suppliers.length ? suppliers.slice(0, 8).map((s) => s.id) : [];
+    supEl.innerHTML = ["", ...lanes]
+      .map((id) => {
+        const label = id ? (laneLabels[id] || id) : "All lanes";
+        const supName = id ? (suppliers.find((s) => s.id === id)?.name || id) : "";
+        return `<button type="button" class="chip filter ${state.catSupplier === id ? "selected" : ""}" data-sup="${escapeHtml(id)}" title="${escapeHtml(supName)}">${label}</button>`;
+      })
+      .join("") + (suppliers.length ? ` <a href="admin.html#suppliers" class="tiny" style="margin-left:.4rem;align-self:center;">manage →</a>` : "");
+  }
 }
 
 function renderGrid() {
   const term = $("#c-search").value.trim().toLowerCase();
   const cat = state.catCatalogue;
+  const supLane = state.catSupplier;
 
-  const list = state.data.products.filter((p) =>
-    (!cat || p.category === cat) &&
-    (!term || p.name.toLowerCase().includes(term) || p.category.toLowerCase().includes(term))
-  );
+  const list = state.data.products.filter((p) => {
+    const hitCat = !cat || p.category === cat;
+    const hitTerm = !term || p.name.toLowerCase().includes(term) || p.category.toLowerCase().includes(term);
+    const hitSup = !supLane || ((p.suppliers || p._suppliers || []).includes(supLane));
+    return hitCat && hitTerm && hitSup;
+  });
 
-  $("#catalogue-grid").innerHTML = list.length ? list.map((p) => `
+  $("#catalogue-grid").innerHTML = list.length ? list.map((p) => {
+    const supIds = p.suppliers || p._suppliers || [];
+    const supBadges = supIds.length ? supIds.slice(0,3).map(id=> `<span class="chip" style="font-size:.68rem;padding:.18rem .45rem;">${escapeHtml(id.replace(/_sa|_bw|_ae/g,''))}</span>`).join(' ') : '';
+    const chan = p.channel==='import' ? 'import · duty applies' : p.channel==='local' ? 'local CMT' : p.channel==='local_stock' ? 'buffer 0d' : 'SA trade';
+    return `
     <article class="card">
       <h3>${p.name}</h3>
-      <p class="tiny">${p.category} · min ${p.moq} ${p.unit} · ${p.lead_days} working days</p>
+      <p class="tiny">${p.category} · min ${p.moq} ${p.unit} · ${p.lead_days} working days · ${chan} ${supBadges}</p>
       <p>From <strong>${money(blankFromPrice(p))}</strong> per ${p.unit}, blank — branding quoted separately.</p>
       <p class="tiny">Branding: ${(p.decor || []).map((d) => decorById(d)?.label || d).join(", ") || "supplied blank"}</p>
       <button type="button" class="btn ghost" data-quote="${p.id}">Quote this item</button>
-    </article>`).join("")
+    </article>`; }).join("")
     : `<p class="tiny">Nothing matches that search. Try “vest”, “shirt”, “gift” or “bottle”.</p>`;
 
   $("#catalogue-count").textContent = `${list.length} of ${state.data.products.length} items · indicative pricing from modelled costs`;
@@ -561,12 +622,21 @@ function initBuilder() {
 function initCatalogue() {
   renderCatalogueChips();
   renderGrid();
+  renderSupplierStrip();
 
   $("#c-search").addEventListener("input", renderGrid);
   $("#c-cat-chips").addEventListener("click", (e) => {
     const chip = e.target.closest("[data-ccat]");
     if (!chip) return;
     state.catCatalogue = chip.dataset.ccat;
+    renderCatalogueChips();
+    renderGrid();
+  });
+  const supChips = $("#c-supplier-chips");
+  if (supChips) supChips.addEventListener("click", (e) => {
+    const chip = e.target.closest("[data-sup]");
+    if (!chip) return;
+    state.catSupplier = chip.dataset.sup;
     renderCatalogueChips();
     renderGrid();
   });
@@ -577,6 +647,22 @@ function initCatalogue() {
     selectProduct(btn.dataset.quote);
     scrollToId("builder", "start");
   });
+}
+
+function renderSupplierStrip() {
+  const grid = $("#supplier-strip-grid");
+  const badge = $("#supplierCountHero");
+  if (!grid || !state.suppliers) return;
+  const suppliers = state.suppliers.suppliers.slice(0,6);
+  if (badge) badge.textContent = `${state.suppliers.suppliers.length} supplier lanes`;
+  grid.innerHTML = suppliers.map(s=> `
+    <article class="card">
+      <h3>${escapeHtml(s.name)} ${s.trade_only ? '<span class="badge warn">trade-only</span>' : ''}</h3>
+      <p class="tiny">${escapeHtml(s.category.slice(0,2).join(' · '))} · ${escapeHtml(s.channel)} · ${s.lead_days}d</p>
+      <p class="tiny">${escapeHtml((s.strength||'').slice(0,110))}</p>
+      <p class="tiny"><a href="${escapeHtml(s.url)}" target="_blank" rel="noopener">Visit →</a> ${s.products_mapped? `· ${s.products_mapped} SKUs mapped` : ''}</p>
+    </article>
+  `).join('');
 }
 
 function initActions() {
@@ -605,17 +691,47 @@ function initActions() {
 /* ---------------- boot ---------------- */
 
 (async function boot() {
+  // Load offline DB helper if present (free, no build step)
+  try {
+    await new Promise((resolve)=>{
+      if (window.BDB_DB) return resolve();
+      const s=document.createElement('script'); s.src='assets/db.js'; s.onload=resolve; s.onerror=resolve; document.head.appendChild(s);
+    });
+  } catch {}
   try {
     await loadData();
     initBuilder();
     initCatalogue();
     initActions();
+    // Offline badge + capture hook
+    const badge = document.getElementById('offlineBadge');
+    if (badge) {
+      const upd=()=>{ const on=navigator.onLine; badge.style.display=''; badge.textContent = on ? '● Online — offline ready' : '● Offline — quotes queue locally'; badge.style.background = on ? 'var(--accent-soft)' : 'var(--warn-bg)'; badge.style.borderColor = on ? '#bfd3c6' : 'var(--warn-line)'; };
+      window.addEventListener('online', upd); window.addEventListener('offline', upd); upd();
+    }
+    // Auto-capture quotes to ERP sync queue when BDB_DB exists (offline-first)
+    const origRefresh = refresh;
+    let captureTimer=null;
+    const orig = refresh;
+    window.refresh = function(){ orig(); clearTimeout(captureTimer); captureTimer=setTimeout(async()=>{
+      try{
+        if(!window.BDB_DB || !state.product || !state.lastQuote) return;
+        const q=state.lastQuote.q, meta=state.lastQuote.meta;
+        // throttle: only every 2s max
+        await BDB_DB.enqueueSync('quote', { id:`QCAP-${Date.now().toString(36)}`, sku: state.product.id, qty: q.qty, total_ex_vat: q.subtotalExVat, margin: q.grossMarginPct, customer: meta.client||'—', zone: meta.deliveryZone, status:'draft', created_at:new Date().toISOString(), product: state.product.name });
+      }catch{}
+    }, 1800); };
   } catch (err) {
     document.querySelector("main").insertAdjacentHTML("afterbegin",
       `<div class="wrap"><p class="q-warn">Catalogue data could not be loaded (${escapeHtml(err.message)}). Serve this folder over HTTP — e.g. <code>python3 -m http.server</code> — rather than opening the file directly.</p></div>`);
   }
 
-  if ("serviceWorker" in navigator && location.protocol === "https:") {
+  if ("serviceWorker" in navigator) {
+    // Register for both http and https when served (SW requires secure context or localhost)
     navigator.serviceWorker.register("sw.js").catch(() => {});
+    // Listen for SW sync trigger
+    navigator.serviceWorker.addEventListener('message', (e)=>{
+      if(e.data && e.data.type==='BDB_FLUSH_QUEUE' && window.BDB_DB) window.BDB_DB.flushSyncQueue(()=>Promise.resolve()).catch(()=>{});
+    });
   }
 })();

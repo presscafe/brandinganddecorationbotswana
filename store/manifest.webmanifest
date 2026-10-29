@@ -1,12 +1,19 @@
 {
   "name": "Branding & Decoration Botswana — Quote Engine",
   "short_name": "B&D Botswana",
-  "description": "Indicative quotations for branded workwear, PPE, corporate clothing, headwear, gifts and event display in Botswana.",
-  "start_url": ".",
+  "description": "Programme-grade branding partner in Botswana: branded workwear, PPE, corporate clothing, headwear, corporate gifts and event display. Instant indicative quote. Offline-first.",
+  "start_url": "./",
   "scope": ".",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "background_color": "#ffffff",
   "theme_color": "#0f3d2e",
+  "categories": ["business", "shopping"],
+  "lang": "en",
+  "dir": "ltr",
+  "orientation": "any",
+  "prefer_related_applications": false,
+  "handle_links": "preferred",
   "icons": [
     {
       "src": "assets/icon-192.png",
@@ -20,5 +27,43 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "screenshots": [
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "label": "Instant quote builder — know the price before you ask"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Instant Quote",
+      "short_name": "Quote",
+      "description": "Build an indicative quote in under a minute",
+      "url": "./#builder",
+      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Catalogue",
+      "short_name": "Catalogue",
+      "description": "Browse 50+ SKUs across workwear, PPE, gifts and display",
+      "url": "./#catalogue",
+      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Admin — CMS + ERP",
+      "short_name": "Admin",
+      "description": "Manage catalogue, suppliers, quotes, vendors and stock (offline-first)",
+      "url": "./admin.html",
+      "icons": [{ "src": "assets/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "share_target": {
+    "action": "./admin.html",
+    "method": "GET",
+    "params": { "title": "title", "text": "text", "url": "url" }
+  },
+  "launch_handler": { "client_mode": "auto" },
+  "edge_side_panel": { "preferred_width": 420 }
 }

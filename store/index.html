@@ -34,9 +34,11 @@
     <nav class="topnav" aria-label="Sections">
       <a href="#builder">Quote</a>
       <a href="#catalogue">Catalogue</a>
+      <a href="#suppliers">Suppliers</a>
       <a href="#programmes">Programmes</a>
       <a href="#partners">Partners</a>
     </nav>
+    <span class="badge" id="offlineBadge" title="Offline-first PWA — quotes work without signal" style="display:none;">● Offline ready</span>
     <span class="badge" title="This is a working prototype: prices are modelled, not offers">Prototype</span>
   </div>
 </header>
@@ -57,7 +59,9 @@
         <span>Certificate pack per SKU</span>
         <span>Local value addition for tenders</span>
         <span>Reordering in three taps</span>
+        <span id="supplierCountHero" title="Vetted supplier lanes">12 supplier lanes</span>
       </div>
+      <p class="tiny" style="margin-top:.7rem;" id="supplierStrip">Sourcing via <a href="#suppliers">Amrod BW</a> · Barron · Jonsson Workwear · Industrial Clothing · TwentyFour · Jasani · China + local CMT — <a href="admin.html">managed in ERP →</a></p>
     </div>
   </section>
 
@@ -206,15 +210,26 @@
   <section id="catalogue" class="band">
     <div class="wrap">
       <h2>A curated range, not a 14,000-SKU catalogue</h2>
-      <p class="band-lede">What we stock or can source reliably, with the branding methods that actually work on each item.</p>
+      <p class="band-lede">What we stock or can source reliably, with the branding methods that actually work on each item. Every SKU maps to one or more vetted suppliers — you’re never locked to one sheet.</p>
 
       <label class="search">
         <span class="search-icon" aria-hidden="true">⌕</span>
-        <input id="c-search" type="search" placeholder="Search the catalogue…" autocomplete="off" aria-label="Search the catalogue" />
+        <input id="c-search" type="search" placeholder="Search the catalogue… try “vest”, “golf shirt”, “bottle”" autocomplete="off" aria-label="Search the catalogue" />
       </label>
       <div class="chip-row" id="c-cat-chips" role="group" aria-label="Filter the catalogue by category"></div>
+      <div class="chip-row" id="c-supplier-chips" role="group" aria-label="Filter by supplier lane" style="margin-top:.4rem;"></div>
       <div id="catalogue-grid" class="cards"></div>
       <p class="tiny" id="catalogue-count"></p>
+    </div>
+  </section>
+
+  <!-- ============ SUPPLIERS ============ -->
+  <section id="suppliers" class="band alt">
+    <div class="wrap">
+      <h2>All blank merchandise &amp; PPE lanes, orchestrated</h2>
+      <p class="band-lede">Trade-only ally <strong>Amrod Botswana</strong> (14,000+ SKUs, 300k items/day) is the primary — others are benchmark, overflow or import leverage. This is how we beat every catalogue-only or print-only competitor: multi-source, duty-aware, quote-transparent. Managed in <a href="admin.html">ERP → Suppliers</a> (offline-first).</p>
+      <div id="supplier-strip-grid" class="cards three"></div>
+      <p class="tiny" style="margin-top:.8rem;"><a href="data/suppliers.json" target="_blank">View supplier registry (JSON)</a> · <a href="data/catalogue.json" target="_blank">Product master</a> · <a href="admin.html#suppliers">Edit in CMS →</a></p>
     </div>
   </section>
 

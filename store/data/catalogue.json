@@ -1,9 +1,9 @@
 {
   "_meta": {
-    "note": "INDICATIVE product master. Costs are working estimates for modelling only and MUST be replaced with verified supplier quotations before any customer-facing use.",
+    "note": "Product master \u2014 now supplier-orchestrated (each SKU maps to 1\u20133 vetted lanes). Costs remain modelled placeholders until BDB-005 verifies.",
     "currency": "BWP",
-    "updated": "2026-10-15",
-    "fx_anchor": "≈P13.8 per US$1 (US State Dept, Sep 2026) - verify current rate",
+    "updated": "2026-10-29",
+    "fx_anchor": "\u2248P13.8 per US$1 (US State Dept, Sep 2026) - verify current rate",
     "channel_legend": {
       "sa_trade": "South African trade account (duty embedded; 2-7 day lead)",
       "import": "Direct import (SACU MFN duty applies; 6-10 week lead)",
@@ -12,79 +12,930 @@
     }
   },
   "products": [
-    { "id": "w01", "name": "Conti suit (poly-cotton, 2-piece)", "category": "Workwear & PPE", "unit": "each", "landed_cost": 245, "moq": 20, "lead_days": 7, "channel": "sa_trade", "decor": ["embroidery", "heat_transfer"] },
-    { "id": "w02", "name": "D59 flame-retardant boiler suit", "category": "Workwear & PPE", "unit": "each", "landed_cost": 690, "moq": 10, "lead_days": 21, "channel": "sa_trade", "decor": ["embroidery", "heat_transfer"] },
-    { "id": "w03", "name": "Hi-vis vest (EN ISO 20471 Class 2)", "category": "Workwear & PPE", "unit": "each", "landed_cost": 42, "moq": 50, "lead_days": 7, "channel": "sa_trade", "decor": ["screen", "heat_transfer", "dtf_a5"] },
-    { "id": "w04", "name": "Hi-vis two-tone long-sleeve shirt", "category": "Workwear & PPE", "unit": "each", "landed_cost": 165, "moq": 30, "lead_days": 10, "channel": "sa_trade", "decor": ["embroidery", "heat_transfer"] },
-    { "id": "w05", "name": "Dust coat (poly-cotton)", "category": "Workwear & PPE", "unit": "each", "landed_cost": 175, "moq": 20, "lead_days": 10, "channel": "sa_trade", "decor": ["embroidery"] },
-    { "id": "w06", "name": "Safety boot (steel toe, leather)", "category": "Workwear & PPE", "unit": "pair", "landed_cost": 480, "moq": 12, "lead_days": 10, "channel": "sa_trade", "decor": [] },
-    { "id": "w07", "name": "Gumboot (PVC/nitrile, steel toe)", "category": "Workwear & PPE", "unit": "pair", "landed_cost": 320, "moq": 12, "lead_days": 10, "channel": "sa_trade", "decor": [] },
-    { "id": "w08", "name": "Hard hat (ABS, ratchet harness)", "category": "Workwear & PPE", "unit": "each", "landed_cost": 78, "moq": 20, "lead_days": 7, "channel": "sa_trade", "decor": ["pad_print"] },
-    { "id": "w09", "name": "Safety glasses (clear, anti-fog)", "category": "Workwear & PPE", "unit": "each", "landed_cost": 32, "moq": 24, "lead_days": 7, "channel": "sa_trade", "decor": ["pad_print"] },
-    { "id": "w10", "name": "Ear defenders (SNR 26dB)", "category": "Workwear & PPE", "unit": "each", "landed_cost": 65, "moq": 20, "lead_days": 7, "channel": "sa_trade", "decor": ["pad_print"] },
-    { "id": "w11", "name": "Leather rigger gloves", "category": "Workwear & PPE", "unit": "pair", "landed_cost": 45, "moq": 24, "lead_days": 7, "channel": "sa_trade", "decor": [] },
-    { "id": "w12", "name": "Nitrile disposable gloves (box of 100)", "category": "Workwear & PPE", "unit": "box", "landed_cost": 95, "moq": 10, "lead_days": 7, "channel": "sa_trade", "decor": [] },
-    { "id": "w13", "name": "FFP2 dust masks (box of 20)", "category": "Workwear & PPE", "unit": "box", "landed_cost": 180, "moq": 10, "lead_days": 7, "channel": "sa_trade", "decor": [] },
-    { "id": "w14", "name": "Leather welding apron", "category": "Workwear & PPE", "unit": "each", "landed_cost": 210, "moq": 10, "lead_days": 14, "channel": "sa_trade", "decor": [] },
-
-    { "id": "c01", "name": "Golf shirt (pique 180gsm, cotton-rich)", "category": "Corporate clothing", "unit": "each", "landed_cost": 128, "moq": 25, "lead_days": 7, "channel": "sa_trade", "decor": ["embroidery", "dtf_a5", "screen"] },
-    { "id": "c02", "name": "Golf shirt (performance poly, moisture-wicking)", "category": "Corporate clothing", "unit": "each", "landed_cost": 145, "moq": 25, "lead_days": 7, "channel": "sa_trade", "decor": ["embroidery", "sublimation"] },
-    { "id": "c03", "name": "Executive long-sleeve shirt", "category": "Corporate clothing", "unit": "each", "landed_cost": 185, "moq": 20, "lead_days": 10, "channel": "sa_trade", "decor": ["embroidery"] },
-    { "id": "c04", "name": "Softshell jacket", "category": "Corporate clothing", "unit": "each", "landed_cost": 420, "moq": 15, "lead_days": 14, "channel": "sa_trade", "decor": ["embroidery", "dtf_a5"] },
-    { "id": "c05", "name": "Fleece bodywarmer", "category": "Corporate clothing", "unit": "each", "landed_cost": 285, "moq": 15, "lead_days": 14, "channel": "sa_trade", "decor": ["embroidery"] },
-    { "id": "c06", "name": "T-shirt (160gsm cotton, crew neck)", "category": "Corporate clothing", "unit": "each", "landed_cost": 62, "moq": 50, "lead_days": 7, "channel": "sa_trade", "decor": ["screen", "dtf_a4", "heat_transfer"] },
-    { "id": "c07", "name": "T-shirt (performance poly)", "category": "Corporate clothing", "unit": "each", "landed_cost": 72, "moq": 50, "lead_days": 7, "channel": "sa_trade", "decor": ["sublimation", "dtf_a4"] },
-    { "id": "c08", "name": "Hoodie / sweatshirt (280gsm)", "category": "Corporate clothing", "unit": "each", "landed_cost": 245, "moq": 25, "lead_days": 14, "channel": "sa_trade", "decor": ["embroidery", "screen", "dtf_a4"] },
-    { "id": "c09", "name": "Cap (structured, 6-panel)", "category": "Headwear", "unit": "each", "landed_cost": 55, "moq": 50, "lead_days": 7, "channel": "sa_trade", "decor": ["embroidery", "dtf_a5", "heat_transfer"] },
-    { "id": "c10", "name": "Bucket hat", "category": "Headwear", "unit": "each", "landed_cost": 68, "moq": 50, "lead_days": 10, "channel": "sa_trade", "decor": ["embroidery", "dtf_a5"] },
-    { "id": "c11", "name": "Beanie", "category": "Headwear", "unit": "each", "landed_cost": 35, "moq": 50, "lead_days": 10, "channel": "import", "decor": ["embroidery"] },
-    { "id": "c12", "name": "Cargo pants (workwear grade)", "category": "Corporate clothing", "unit": "each", "landed_cost": 265, "moq": 20, "lead_days": 10, "channel": "sa_trade", "decor": [] },
-    { "id": "c13", "name": "Bistro apron", "category": "Hospitality", "unit": "each", "landed_cost": 130, "moq": 20, "lead_days": 10, "channel": "sa_trade", "decor": ["embroidery", "screen"] },
-    { "id": "c14", "name": "Chef jacket", "category": "Hospitality", "unit": "each", "landed_cost": 275, "moq": 15, "lead_days": 14, "channel": "sa_trade", "decor": ["embroidery"] },
-    { "id": "c15", "name": "Scrub top and trouser set", "category": "Healthcare", "unit": "set", "landed_cost": 310, "moq": 20, "lead_days": 14, "channel": "sa_trade", "decor": ["embroidery"] },
-
-    { "id": "m01", "name": "A5 PU notebook", "category": "Corporate gifts", "unit": "each", "landed_cost": 68, "moq": 50, "lead_days": 14, "channel": "import", "decor": ["laser", "pad_print"] },
-    { "id": "m02", "name": "Metal ballpoint pen", "category": "Corporate gifts", "unit": "each", "landed_cost": 22, "moq": 100, "lead_days": 21, "channel": "import", "decor": ["pad_print", "laser"] },
-    { "id": "m03", "name": "Power bank 10,000mAh", "category": "Corporate gifts", "unit": "each", "landed_cost": 185, "moq": 50, "lead_days": 28, "channel": "import", "decor": ["pad_print", "laser"] },
-    { "id": "m04", "name": "Insulated water bottle 500ml", "category": "Corporate gifts", "unit": "each", "landed_cost": 145, "moq": 50, "lead_days": 21, "channel": "import", "decor": ["laser"] },
-    { "id": "m05", "name": "Ceramic mug", "category": "Corporate gifts", "unit": "each", "landed_cost": 55, "moq": 72, "lead_days": 21, "channel": "import", "decor": ["sublimation"] },
-    { "id": "m06", "name": "RPET tote bag", "category": "Corporate gifts", "unit": "each", "landed_cost": 38, "moq": 100, "lead_days": 21, "channel": "import", "decor": ["screen", "dtf_a4"] },
-    { "id": "m07", "name": "Laptop backpack", "category": "Corporate gifts", "unit": "each", "landed_cost": 320, "moq": 25, "lead_days": 28, "channel": "import", "decor": ["embroidery", "pad_print"] },
-    { "id": "m08", "name": "Conference folder (A4, PU)", "category": "Corporate gifts", "unit": "each", "landed_cost": 90, "moq": 50, "lead_days": 21, "channel": "import", "decor": ["laser", "pad_print"] },
-    { "id": "m09", "name": "Lanyard + badge holder", "category": "Corporate gifts", "unit": "each", "landed_cost": 22, "moq": 100, "lead_days": 21, "channel": "import", "decor": ["sublimation", "screen"] },
-    { "id": "m10", "name": "USB-C charge and sync cable set", "category": "Corporate gifts", "unit": "each", "landed_cost": 85, "moq": 50, "lead_days": 28, "channel": "import", "decor": ["pad_print"] },
-    { "id": "m11", "name": "Bluetooth earbuds", "category": "Corporate gifts", "unit": "each", "landed_cost": 220, "moq": 50, "lead_days": 28, "channel": "import", "decor": ["pad_print"] },
-    { "id": "m12", "name": "Branded umbrella (golf)", "category": "Corporate gifts", "unit": "each", "landed_cost": 175, "moq": 50, "lead_days": 21, "channel": "import", "decor": ["screen", "dtf_a5"] },
-
-    { "id": "e01", "name": "Pull-up banner with carry case", "category": "Display & event", "unit": "each", "landed_cost": 850, "moq": 2, "lead_days": 10, "channel": "local", "decor": [] },
-    { "id": "e02", "name": "Gazebo 3x3m with full print", "category": "Display & event", "unit": "each", "landed_cost": 2400, "moq": 1, "lead_days": 21, "channel": "local", "decor": [] },
-    { "id": "e03", "name": "Feather flag with base", "category": "Display & event", "unit": "each", "landed_cost": 950, "moq": 2, "lead_days": 14, "channel": "local", "decor": [] },
-    { "id": "e04", "name": "Printed table cloth (fitted)", "category": "Display & event", "unit": "each", "landed_cost": 780, "moq": 1, "lead_days": 21, "channel": "local", "decor": [] },
-    { "id": "e05", "name": "A-frame pavement sign (printed panels)", "category": "Display & event", "unit": "each", "landed_cost": 1450, "moq": 1, "lead_days": 14, "channel": "local", "decor": [] }
+    {
+      "id": "w01",
+      "name": "Conti suit (poly-cotton, 2-piece)",
+      "category": "Workwear & PPE",
+      "unit": "each",
+      "landed_cost": 245,
+      "moq": 20,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery",
+        "heat_transfer"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "barron_sa",
+        "jonsson_sa"
+      ]
+    },
+    {
+      "id": "w02",
+      "name": "D59 flame-retardant boiler suit",
+      "category": "Workwear & PPE",
+      "unit": "each",
+      "landed_cost": 690,
+      "moq": 10,
+      "lead_days": 21,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery",
+        "heat_transfer"
+      ],
+      "suppliers": [
+        "jonsson_sa",
+        "barron_sa"
+      ]
+    },
+    {
+      "id": "w03",
+      "name": "Hi-vis vest (EN ISO 20471 Class 2)",
+      "category": "Workwear & PPE",
+      "unit": "each",
+      "landed_cost": 42,
+      "moq": 50,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [
+        "screen",
+        "heat_transfer",
+        "dtf_a5"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "jonsson_sa",
+        "industrial_clothing_sa"
+      ]
+    },
+    {
+      "id": "w04",
+      "name": "Hi-vis two-tone long-sleeve shirt",
+      "category": "Workwear & PPE",
+      "unit": "each",
+      "landed_cost": 165,
+      "moq": 30,
+      "lead_days": 10,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery",
+        "heat_transfer"
+      ],
+      "suppliers": [
+        "jonsson_sa",
+        "barron_sa"
+      ]
+    },
+    {
+      "id": "w05",
+      "name": "Dust coat (poly-cotton)",
+      "category": "Workwear & PPE",
+      "unit": "each",
+      "landed_cost": 175,
+      "moq": 20,
+      "lead_days": 10,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery"
+      ],
+      "suppliers": [
+        "barron_sa",
+        "amrod_bw"
+      ]
+    },
+    {
+      "id": "w06",
+      "name": "Safety boot (steel toe, leather)",
+      "category": "Workwear & PPE",
+      "unit": "pair",
+      "landed_cost": 480,
+      "moq": 12,
+      "lead_days": 10,
+      "channel": "sa_trade",
+      "decor": [],
+      "suppliers": [
+        "industrial_clothing_sa",
+        "jonsson_sa"
+      ]
+    },
+    {
+      "id": "w07",
+      "name": "Gumboot (PVC/nitrile, steel toe)",
+      "category": "Workwear & PPE",
+      "unit": "pair",
+      "landed_cost": 320,
+      "moq": 12,
+      "lead_days": 10,
+      "channel": "sa_trade",
+      "decor": [],
+      "suppliers": [
+        "industrial_clothing_sa",
+        "jonsson_sa"
+      ]
+    },
+    {
+      "id": "w08",
+      "name": "Hard hat (ABS, ratchet harness)",
+      "category": "Workwear & PPE",
+      "unit": "each",
+      "landed_cost": 78,
+      "moq": 20,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [
+        "pad_print"
+      ],
+      "suppliers": [
+        "industrial_clothing_sa",
+        "amrod_bw"
+      ]
+    },
+    {
+      "id": "w09",
+      "name": "Safety glasses (clear, anti-fog)",
+      "category": "Workwear & PPE",
+      "unit": "each",
+      "landed_cost": 32,
+      "moq": 24,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [
+        "pad_print"
+      ],
+      "suppliers": [
+        "industrial_clothing_sa"
+      ]
+    },
+    {
+      "id": "w10",
+      "name": "Ear defenders (SNR 26dB)",
+      "category": "Workwear & PPE",
+      "unit": "each",
+      "landed_cost": 65,
+      "moq": 20,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [
+        "pad_print"
+      ],
+      "suppliers": [
+        "industrial_clothing_sa"
+      ]
+    },
+    {
+      "id": "w11",
+      "name": "Leather rigger gloves",
+      "category": "Workwear & PPE",
+      "unit": "pair",
+      "landed_cost": 45,
+      "moq": 24,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [],
+      "suppliers": [
+        "industrial_clothing_sa",
+        "jonsson_sa"
+      ]
+    },
+    {
+      "id": "w12",
+      "name": "Nitrile disposable gloves (box of 100)",
+      "category": "Workwear & PPE",
+      "unit": "box",
+      "landed_cost": 95,
+      "moq": 10,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [],
+      "suppliers": [
+        "industrial_clothing_sa"
+      ]
+    },
+    {
+      "id": "w13",
+      "name": "FFP2 dust masks (box of 20)",
+      "category": "Workwear & PPE",
+      "unit": "box",
+      "landed_cost": 180,
+      "moq": 10,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [],
+      "suppliers": [
+        "industrial_clothing_sa"
+      ]
+    },
+    {
+      "id": "w14",
+      "name": "Leather welding apron",
+      "category": "Workwear & PPE",
+      "unit": "each",
+      "landed_cost": 210,
+      "moq": 10,
+      "lead_days": 14,
+      "channel": "sa_trade",
+      "decor": [],
+      "suppliers": [
+        "industrial_clothing_sa",
+        "jonsson_sa"
+      ]
+    },
+    {
+      "id": "c01",
+      "name": "Golf shirt (pique 180gsm, cotton-rich)",
+      "category": "Corporate clothing",
+      "unit": "each",
+      "landed_cost": 128,
+      "moq": 25,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery",
+        "dtf_a5",
+        "screen"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "barron_sa",
+        "twentyfour_sa"
+      ]
+    },
+    {
+      "id": "c02",
+      "name": "Golf shirt (performance poly, moisture-wicking)",
+      "category": "Corporate clothing",
+      "unit": "each",
+      "landed_cost": 145,
+      "moq": 25,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery",
+        "sublimation"
+      ],
+      "suppliers": [
+        "barron_sa",
+        "amrod_bw"
+      ]
+    },
+    {
+      "id": "c03",
+      "name": "Executive long-sleeve shirt",
+      "category": "Corporate clothing",
+      "unit": "each",
+      "landed_cost": 185,
+      "moq": 20,
+      "lead_days": 10,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery"
+      ],
+      "suppliers": [
+        "barron_sa",
+        "amrod_bw"
+      ]
+    },
+    {
+      "id": "c04",
+      "name": "Softshell jacket",
+      "category": "Corporate clothing",
+      "unit": "each",
+      "landed_cost": 420,
+      "moq": 15,
+      "lead_days": 14,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery",
+        "dtf_a5"
+      ],
+      "suppliers": [
+        "barron_sa",
+        "amrod_bw",
+        "twentyfour_sa"
+      ]
+    },
+    {
+      "id": "c05",
+      "name": "Fleece bodywarmer",
+      "category": "Corporate clothing",
+      "unit": "each",
+      "landed_cost": 285,
+      "moq": 15,
+      "lead_days": 14,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery"
+      ],
+      "suppliers": [
+        "barron_sa",
+        "amrod_bw"
+      ]
+    },
+    {
+      "id": "c06",
+      "name": "T-shirt (160gsm cotton, crew neck)",
+      "category": "Corporate clothing",
+      "unit": "each",
+      "landed_cost": 62,
+      "moq": 50,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [
+        "screen",
+        "dtf_a4",
+        "heat_transfer"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "twentyfour_sa",
+        "local_ctm_bw",
+        "local_stock_bw"
+      ]
+    },
+    {
+      "id": "c07",
+      "name": "T-shirt (performance poly)",
+      "category": "Corporate clothing",
+      "unit": "each",
+      "landed_cost": 72,
+      "moq": 50,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [
+        "sublimation",
+        "dtf_a4"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "twentyfour_sa"
+      ]
+    },
+    {
+      "id": "c08",
+      "name": "Hoodie / sweatshirt (280gsm)",
+      "category": "Corporate clothing",
+      "unit": "each",
+      "landed_cost": 245,
+      "moq": 25,
+      "lead_days": 14,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery",
+        "screen",
+        "dtf_a4"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "barron_sa",
+        "twentyfour_sa"
+      ]
+    },
+    {
+      "id": "c09",
+      "name": "Cap (structured, 6-panel)",
+      "category": "Headwear",
+      "unit": "each",
+      "landed_cost": 55,
+      "moq": 50,
+      "lead_days": 7,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery",
+        "dtf_a5",
+        "heat_transfer"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "twentyfour_sa",
+        "hadida_sa"
+      ]
+    },
+    {
+      "id": "c10",
+      "name": "Bucket hat",
+      "category": "Headwear",
+      "unit": "each",
+      "landed_cost": 68,
+      "moq": 50,
+      "lead_days": 10,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery",
+        "dtf_a5"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "hadida_sa"
+      ]
+    },
+    {
+      "id": "c11",
+      "name": "Beanie",
+      "category": "Headwear",
+      "unit": "each",
+      "landed_cost": 35,
+      "moq": 50,
+      "lead_days": 10,
+      "channel": "import",
+      "decor": [
+        "embroidery"
+      ],
+      "suppliers": [
+        "hadida_sa",
+        "amrod_bw"
+      ]
+    },
+    {
+      "id": "c12",
+      "name": "Cargo pants (workwear grade)",
+      "category": "Corporate clothing",
+      "unit": "each",
+      "landed_cost": 265,
+      "moq": 20,
+      "lead_days": 10,
+      "channel": "sa_trade",
+      "decor": [],
+      "suppliers": [
+        "barron_sa",
+        "jonsson_sa"
+      ]
+    },
+    {
+      "id": "c13",
+      "name": "Bistro apron",
+      "category": "Hospitality",
+      "unit": "each",
+      "landed_cost": 130,
+      "moq": 20,
+      "lead_days": 10,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery",
+        "screen"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "local_ctm_bw"
+      ]
+    },
+    {
+      "id": "c14",
+      "name": "Chef jacket",
+      "category": "Hospitality",
+      "unit": "each",
+      "landed_cost": 275,
+      "moq": 15,
+      "lead_days": 14,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "local_ctm_bw"
+      ]
+    },
+    {
+      "id": "c15",
+      "name": "Scrub top and trouser set",
+      "category": "Healthcare",
+      "unit": "set",
+      "landed_cost": 310,
+      "moq": 20,
+      "lead_days": 14,
+      "channel": "sa_trade",
+      "decor": [
+        "embroidery"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "local_ctm_bw"
+      ]
+    },
+    {
+      "id": "m01",
+      "name": "A5 PU notebook",
+      "category": "Corporate gifts",
+      "unit": "each",
+      "landed_cost": 68,
+      "moq": 50,
+      "lead_days": 14,
+      "channel": "import",
+      "decor": [
+        "laser",
+        "pad_print"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "jasani_ae",
+        "china_agent"
+      ]
+    },
+    {
+      "id": "m02",
+      "name": "Metal ballpoint pen",
+      "category": "Corporate gifts",
+      "unit": "each",
+      "landed_cost": 22,
+      "moq": 100,
+      "lead_days": 21,
+      "channel": "import",
+      "decor": [
+        "pad_print",
+        "laser"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "jasani_ae",
+        "china_agent"
+      ]
+    },
+    {
+      "id": "m03",
+      "name": "Power bank 10,000mAh",
+      "category": "Corporate gifts",
+      "unit": "each",
+      "landed_cost": 185,
+      "moq": 50,
+      "lead_days": 28,
+      "channel": "import",
+      "decor": [
+        "pad_print",
+        "laser"
+      ],
+      "suppliers": [
+        "jasani_ae",
+        "amrod_bw",
+        "china_agent"
+      ]
+    },
+    {
+      "id": "m04",
+      "name": "Insulated water bottle 500ml",
+      "category": "Corporate gifts",
+      "unit": "each",
+      "landed_cost": 145,
+      "moq": 50,
+      "lead_days": 21,
+      "channel": "import",
+      "decor": [
+        "laser"
+      ],
+      "suppliers": [
+        "jasani_ae",
+        "amrod_bw"
+      ]
+    },
+    {
+      "id": "m05",
+      "name": "Ceramic mug",
+      "category": "Corporate gifts",
+      "unit": "each",
+      "landed_cost": 55,
+      "moq": 72,
+      "lead_days": 21,
+      "channel": "import",
+      "decor": [
+        "sublimation"
+      ],
+      "suppliers": [
+        "jasani_ae",
+        "china_agent"
+      ]
+    },
+    {
+      "id": "m06",
+      "name": "RPET tote bag",
+      "category": "Corporate gifts",
+      "unit": "each",
+      "landed_cost": 38,
+      "moq": 100,
+      "lead_days": 21,
+      "channel": "import",
+      "decor": [
+        "screen",
+        "dtf_a4"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "jasani_ae",
+        "china_agent",
+        "local_ctm_bw"
+      ]
+    },
+    {
+      "id": "m07",
+      "name": "Laptop backpack",
+      "category": "Corporate gifts",
+      "unit": "each",
+      "landed_cost": 320,
+      "moq": 25,
+      "lead_days": 28,
+      "channel": "import",
+      "decor": [
+        "embroidery",
+        "pad_print"
+      ],
+      "suppliers": [
+        "hadida_sa",
+        "jasani_ae",
+        "amrod_bw"
+      ]
+    },
+    {
+      "id": "m08",
+      "name": "Conference folder (A4, PU)",
+      "category": "Corporate gifts",
+      "unit": "each",
+      "landed_cost": 90,
+      "moq": 50,
+      "lead_days": 21,
+      "channel": "import",
+      "decor": [
+        "laser",
+        "pad_print"
+      ],
+      "suppliers": [
+        "jasani_ae",
+        "amrod_bw"
+      ]
+    },
+    {
+      "id": "m09",
+      "name": "Lanyard + badge holder",
+      "category": "Corporate gifts",
+      "unit": "each",
+      "landed_cost": 22,
+      "moq": 100,
+      "lead_days": 21,
+      "channel": "import",
+      "decor": [
+        "sublimation",
+        "screen"
+      ],
+      "suppliers": [
+        "jasani_ae",
+        "china_agent"
+      ]
+    },
+    {
+      "id": "m10",
+      "name": "USB-C charge and sync cable set",
+      "category": "Corporate gifts",
+      "unit": "each",
+      "landed_cost": 85,
+      "moq": 50,
+      "lead_days": 28,
+      "channel": "import",
+      "decor": [
+        "pad_print"
+      ],
+      "suppliers": [
+        "jasani_ae",
+        "china_agent"
+      ]
+    },
+    {
+      "id": "m11",
+      "name": "Bluetooth earbuds",
+      "category": "Corporate gifts",
+      "unit": "each",
+      "landed_cost": 220,
+      "moq": 50,
+      "lead_days": 28,
+      "channel": "import",
+      "decor": [
+        "pad_print"
+      ],
+      "suppliers": [
+        "jasani_ae",
+        "china_agent"
+      ]
+    },
+    {
+      "id": "m12",
+      "name": "Branded umbrella (golf)",
+      "category": "Corporate gifts",
+      "unit": "each",
+      "landed_cost": 175,
+      "moq": 50,
+      "lead_days": 21,
+      "channel": "import",
+      "decor": [
+        "screen",
+        "dtf_a5"
+      ],
+      "suppliers": [
+        "amrod_bw",
+        "jasani_ae"
+      ]
+    },
+    {
+      "id": "e01",
+      "name": "Pull-up banner with carry case",
+      "category": "Display & event",
+      "unit": "each",
+      "landed_cost": 850,
+      "moq": 2,
+      "lead_days": 10,
+      "channel": "local",
+      "decor": [],
+      "suppliers": [
+        "local_ctm_bw",
+        "sondor_sa",
+        "probrand_sa"
+      ]
+    },
+    {
+      "id": "e02",
+      "name": "Gazebo 3x3m with full print",
+      "category": "Display & event",
+      "unit": "each",
+      "landed_cost": 2400,
+      "moq": 1,
+      "lead_days": 21,
+      "channel": "local",
+      "decor": [],
+      "suppliers": [
+        "local_ctm_bw",
+        "sondor_sa"
+      ]
+    },
+    {
+      "id": "e03",
+      "name": "Feather flag with base",
+      "category": "Display & event",
+      "unit": "each",
+      "landed_cost": 950,
+      "moq": 2,
+      "lead_days": 14,
+      "channel": "local",
+      "decor": [],
+      "suppliers": [
+        "local_ctm_bw",
+        "sondor_sa"
+      ]
+    },
+    {
+      "id": "e04",
+      "name": "Printed table cloth (fitted)",
+      "category": "Display & event",
+      "unit": "each",
+      "landed_cost": 780,
+      "moq": 1,
+      "lead_days": 21,
+      "channel": "local",
+      "decor": [],
+      "suppliers": [
+        "local_ctm_bw",
+        "sondor_sa"
+      ]
+    },
+    {
+      "id": "e05",
+      "name": "A-frame pavement sign (printed panels)",
+      "category": "Display & event",
+      "unit": "each",
+      "landed_cost": 1450,
+      "moq": 1,
+      "lead_days": 14,
+      "channel": "local",
+      "decor": [],
+      "suppliers": [
+        "local_ctm_bw",
+        "sondor_sa"
+      ]
+    }
   ],
   "decoration": [
-    { "id": "embroidery", "label": "Embroidery (logo)", "minStitches": 6000, "pricePer1000": 4.2, "costPer1000": 1.6, "setup": 120, "setup_label": "Digitising", "minQty": 12, "note": "Left or right chest; add 3,000 stitches for full-back or large logos" },
-    { "id": "dtf_a4", "label": "DTF transfer (A4 area)", "pricePerUnit": 55, "costPerUnit": 22, "setup": 0, "minQty": 1, "note": "Full colour, no setup, works on cotton and poly" },
-    { "id": "dtf_a5", "label": "DTF transfer (A5 area)", "pricePerUnit": 35, "costPerUnit": 13, "setup": 0, "minQty": 1, "note": "Ideal for left-chest or cap front, full colour" },
-    { "id": "screen", "label": "Screen print (per colour)", "pricePerUnit": 6.5, "costPerUnit": 2.2, "setup": 220, "setup_label": "Screen setup per colour", "minQty": 48, "note": "Economical above 48 pieces on simple designs" },
-    { "id": "sublimation", "label": "Sublimation print", "pricePerUnit": 45, "costPerUnit": 16, "setup": 0, "minQty": 10, "note": "Polyester substrates only; photo-quality results" },
-    { "id": "heat_transfer", "label": "Heat transfer vinyl (name / number)", "pricePerUnit": 28, "costPerUnit": 9, "setup": 0, "minQty": 1, "note": "Names, numbers, high-visibility flashes" },
-    { "id": "laser", "label": "Laser engraving", "pricePerUnit": 38, "costPerUnit": 11, "setup": 90, "setup_label": "Artwork jig", "minQty": 10, "note": "Metal, PU, wood, drinkware" },
-    { "id": "pad_print", "label": "Pad printing", "pricePerUnit": 3.5, "costPerUnit": 1.1, "setup": 150, "setup_label": "Pad plate", "minQty": 50, "note": "Small flat items: pens, helmets, gadgets" }
+    {
+      "id": "embroidery",
+      "label": "Embroidery (logo)",
+      "minStitches": 6000,
+      "pricePer1000": 4.2,
+      "costPer1000": 1.6,
+      "setup": 120,
+      "setup_label": "Digitising",
+      "minQty": 12,
+      "note": "Left or right chest; add 3,000 stitches for full-back or large logos"
+    },
+    {
+      "id": "dtf_a4",
+      "label": "DTF transfer (A4 area)",
+      "pricePerUnit": 55,
+      "costPerUnit": 22,
+      "setup": 0,
+      "minQty": 1,
+      "note": "Full colour, no setup, works on cotton and poly"
+    },
+    {
+      "id": "dtf_a5",
+      "label": "DTF transfer (A5 area)",
+      "pricePerUnit": 35,
+      "costPerUnit": 13,
+      "setup": 0,
+      "minQty": 1,
+      "note": "Ideal for left-chest or cap front, full colour"
+    },
+    {
+      "id": "screen",
+      "label": "Screen print (per colour)",
+      "pricePerUnit": 6.5,
+      "costPerUnit": 2.2,
+      "setup": 220,
+      "setup_label": "Screen setup per colour",
+      "minQty": 48,
+      "note": "Economical above 48 pieces on simple designs"
+    },
+    {
+      "id": "sublimation",
+      "label": "Sublimation print",
+      "pricePerUnit": 45,
+      "costPerUnit": 16,
+      "setup": 0,
+      "minQty": 10,
+      "note": "Polyester substrates only; photo-quality results"
+    },
+    {
+      "id": "heat_transfer",
+      "label": "Heat transfer vinyl (name / number)",
+      "pricePerUnit": 28,
+      "costPerUnit": 9,
+      "setup": 0,
+      "minQty": 1,
+      "note": "Names, numbers, high-visibility flashes"
+    },
+    {
+      "id": "laser",
+      "label": "Laser engraving",
+      "pricePerUnit": 38,
+      "costPerUnit": 11,
+      "setup": 90,
+      "setup_label": "Artwork jig",
+      "minQty": 10,
+      "note": "Metal, PU, wood, drinkware"
+    },
+    {
+      "id": "pad_print",
+      "label": "Pad printing",
+      "pricePerUnit": 3.5,
+      "costPerUnit": 1.1,
+      "setup": 150,
+      "setup_label": "Pad plate",
+      "minQty": 50,
+      "note": "Small flat items: pens, helmets, gadgets"
+    }
   ],
   "delivery": [
-    { "zone": "Gaborone", "fee": 150 },
-    { "zone": "Mochudi / Kweneng", "fee": 350 },
-    { "zone": "Jwaneng", "fee": 400 },
-    { "zone": "Palapye", "fee": 450 },
-    { "zone": "Francistown", "fee": 480 },
-    { "zone": "Serowe", "fee": 500 },
-    { "zone": "Selebi-Phikwe", "fee": 520 },
-    { "zone": "Orapa / Letlhakane", "fee": 550 },
-    { "zone": "Maun", "fee": 700 },
-    { "zone": "Kasane", "fee": 950 },
-    { "zone": "Mine gate / remote site (per drop)", "fee": 850 },
-    { "zone": "Collection from Gaborone workshop", "fee": 0 }
+    {
+      "zone": "Gaborone",
+      "fee": 150
+    },
+    {
+      "zone": "Mochudi / Kweneng",
+      "fee": 350
+    },
+    {
+      "zone": "Jwaneng",
+      "fee": 400
+    },
+    {
+      "zone": "Palapye",
+      "fee": 450
+    },
+    {
+      "zone": "Francistown",
+      "fee": 480
+    },
+    {
+      "zone": "Serowe",
+      "fee": 500
+    },
+    {
+      "zone": "Selebi-Phikwe",
+      "fee": 520
+    },
+    {
+      "zone": "Orapa / Letlhakane",
+      "fee": 550
+    },
+    {
+      "zone": "Maun",
+      "fee": 700
+    },
+    {
+      "zone": "Kasane",
+      "fee": 950
+    },
+    {
+      "zone": "Mine gate / remote site (per drop)",
+      "fee": 850
+    },
+    {
+      "zone": "Collection from Gaborone workshop",
+      "fee": 0
+    }
   ],
   "config": {
     "free_delivery_threshold": 25000,
@@ -92,12 +943,28 @@
     "quote_validity_days": 14,
     "rush_surcharge": 0.2,
     "rush_days_threshold": 3,
-    "credit_surcharge": { "prepay": 0, "days30": 0.02, "days60": 0.04 },
+    "credit_surcharge": {
+      "prepay": 0,
+      "days30": 0.02,
+      "days60": 0.04
+    },
     "margin_tiers": [
-      { "min_qty": 0, "margin": 0.48 },
-      { "min_qty": 25, "margin": 0.40 },
-      { "min_qty": 100, "margin": 0.34 },
-      { "min_qty": 500, "margin": 0.28 }
+      {
+        "min_qty": 0,
+        "margin": 0.48
+      },
+      {
+        "min_qty": 25,
+        "margin": 0.4
+      },
+      {
+        "min_qty": 100,
+        "margin": 0.34
+      },
+      {
+        "min_qty": 500,
+        "margin": 0.28
+      }
     ],
     "decoration_margin_floor": 0.5,
     "min_order_value": 1500

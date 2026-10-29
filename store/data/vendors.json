@@ -1,0 +1,66 @@
+{
+  "_meta": {
+    "note": "Vendor content registry — vendor-supplied product content, certificates and rich media managed by admins. This is the CMS content layer that overlays the product master.",
+    "updated": "2026-10-29",
+    "admin_route": "./admin.html#vendors",
+    "storage": "IndexedDB (bdb-erp) -> vendors store; export to this file for GitHub persistence (free)."
+  },
+  "vendors": [
+    {
+      "id": "v_amrod",
+      "supplier_id": "amrod_bw",
+      "name": "Amrod Content Hub",
+      "type": "Trade supplier content",
+      "content_items": 42,
+      "last_sync": "2026-10-29",
+      "assets": ["product_descriptions", "images", "size_charts", "test_reports"],
+      "status": "active",
+      "contact": "Amrod Botswana — Broadhurst trade desk",
+      "notes": "Trade-only: content licensed for distributor use only. Do not expose trade price. Use sell bands only."
+    },
+    {
+      "id": "v_barron",
+      "supplier_id": "barron_sa",
+      "name": "Barron Brand Assets",
+      "type": "Brand owner content",
+      "content_items": 18,
+      "last_sync": "2026-10-29",
+      "assets": ["brand_guidelines", "size_matrices", "fabric_specs", "colour_swatches"],
+      "status": "active",
+      "contact": "Barron SA distributor portal",
+      "notes": "Barron sizing is the SA mining standard — mirror size charts 1:1 for programme clients."
+    },
+    {
+      "id": "v_jonsson",
+      "supplier_id": "jonsson_sa",
+      "name": "Jonsson Workwear Specs",
+      "type": "PPE compliance content",
+      "content_items": 14,
+      "last_sync": "2026-10-29",
+      "assets": ["ppe_spec_sheets", "en_iso_certificates", "wash_care", "size_charts"],
+      "status": "active",
+      "contact": "jonsson.co.za trade",
+      "notes": "EN ISO 20471/11612 certs mandatory for mining PPE issue sets. Attach per SKU via certificate register."
+    },
+    {
+      "id": "v_jasani",
+      "supplier_id": "jasani_ae",
+      "name": "Jasani Gifting Catalogue",
+      "type": "Import gift content",
+      "content_items": 12,
+      "last_sync": "2026-10-29",
+      "assets": ["product_renders", "branding_options", "packaging_specs", "hs_codes"],
+      "status": "benchmark",
+      "contact": "jasani.ae — request FOB pack",
+      "notes": "High-run gift content — MOQ 500+. HS codes needed for duty calc."
+    }
+  ],
+  "content_types": [
+    {"id": "product_description", "label": "Product description (SEO)", "used_in": ["catalogue_grid", "pdp", "seo_page"]},
+    {"id": "vendor_image", "label": "Vendor product image", "used_in": ["catalogue", "quote_pdf"], "rights": "Check supplier brand licence before publishing"},
+    {"id": "size_chart", "label": "Size matrix", "used_in": ["brand_vault", "kitting"]},
+    {"id": "test_report", "label": "Test report / certificate", "used_in": ["certificate_register", "tender_pack"], "sla": "Pack attachable in <4 min per quote (BDB-022)"},
+    {"id": "brand_guideline", "label": "Brand guideline / logo pack", "used_in": ["brand_vault", "digitising"]},
+    {"id": "vendor_story", "label": "Vendor story (E-E-A-T)", "used_in": ["seo_page", "case_study"], "note": "e.g. 'Why Jonsson conti lasts 18 months on a mine' — builds expertise signal"}
+  ]
+}

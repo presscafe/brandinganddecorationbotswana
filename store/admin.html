@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Admin — Branding &amp; Decoration Botswana (CMS + ERP)</title>
+<meta name="robots" content="noindex, nofollow" />
+<meta name="theme-color" content="#0f3d2e" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="assets/admin.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    <a class="brand" href="./">
+      <span class="brand-mark">B&amp;D</span>
+      <span class="brand-text"><strong>B&amp;D Admin</strong><em>CMS · ERP · offline-first</em></span>
+    </a>
+    <input id="globalSearch" type="search" placeholder="Search products, suppliers, orders…" aria-label="Search" />
+    <span class="badge live" id="dbBadge" title="IndexedDB status">DB ✓</span>
+    <span class="badge" id="netBadge">Online</span>
+    <a class="btn ghost" href="./" title="Storefront">Storefront →</a>
+  </div>
+</header>
+
+<!-- Login gate -->
+<div id="loginView" class="wrap">
+  <div class="login">
+    <h2>Admin access</h2>
+    <p class="tiny">Offline-first CMS/ERP. Runs entirely in your browser (IndexedDB). No server, no cost. Set a PIN that lives only on this device. For team use, protect <code>/admin.html</code> with <strong>Cloudflare Access</strong> (free, 50 seats) — see <code>store/README.md</code>.</p>
+    <div class="field" style="margin-top:.9rem;">
+      <span>PIN</span>
+      <input id="pinInput" type="password" inputmode="numeric" placeholder="Default 2026 on first open" />
+      <small id="pinHint">First time? Use <code>2026</code> then set your own in System → Security.</small>
+    </div>
+    <div style="display:flex;gap:.5rem;margin-top:.9rem;">
+      <button class="btn primary" id="pinBtn" style="flex:1;">Enter</button>
+      <button class="btn ghost" id="pinReset" title="Clear local PIN">Reset</button>
+    </div>
+    <p class="tiny" style="margin-top:.8rem;">Storage: <code id="loginStorage">—</code> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+  </div>
+</div>
+
+<!-- Shell -->
+<div id="shell" class="shell" hidden>
+  <nav class="nav" id="nav">
+    <h4>Operate</h4>
+    <button data-panel="dash" class="active">📊 Dashboard <small id="nDash"></small></button>
+    <button data-panel="catalogue">🧵 Catalogue <small id="nCat"></small></button>
+    <button data-panel="suppliers">🏭 Suppliers <small id="nSup"></small></button>
+    <button data-panel="vendors">🗂️ Vendor Content <small id="nVen"></small></button>
+    <h4>Sell</h4>
+    <button data-panel="quotes">🧾 Quotes & Orders <small id="nQ"></small></button>
+    <button data-panel="customers">👥 Customers & Vaults</button>
+    <button data-panel="partners">🤝 Partners <small id="nPar"></small></button>
+    <h4>Control</h4>
+    <button data-panel="certs">🛡️ Certificates</button>
+    <button data-panel="pricing">💰 Pricing Rules</button>
+    <button data-panel="stock">📦 Buffer Stock</button>
+    <button data-panel="import">⬆️ Import / Export</button>
+    <button data-panel="system">⚙️ System</button>
+    <hr />
+    <button id="logoutBtn" style="color:var(--danger);">⎋ Logout</button>
+    <p class="tiny" style="padding:.4rem;">Free stack: Pages + IndexedDB + GitHub. No vendor lock-in.</p>
+  </nav>
+
+  <main class="main">
+    <div id="offlineBanner" class="offline-banner">⚠️ Offline — you’re editing the local ERP. Changes queue locally and export to GitHub when back online.</div>
+
+    <!-- Dashboard -->
+    <section id="panel-dash" class="panel active">
+      <div style="display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;">
+        <h2 style="margin:0;">Dashboard</h2>
+        <span class="badge" id="lastSeed"></span>
+        <button class="btn ghost" id="refreshDash">Refresh</button>
+        <button class="btn primary" id="seedBtn">Seed / Re-sync JSON → DB</button>
+      </div>
+      <div class="cards" style="margin-top:1rem;">
+        <div class="card"><h3>Products</h3><strong id="kpiProducts">—</strong><p class="tiny" id="kpiProductsSub"></p></div>
+        <div class="card"><h3>Suppliers</h3><strong id="kpiSuppliers">—</strong><p class="tiny">Amrod BW + 11 lanes (trade/import/local)</p></div>
+        <div class="card"><h3>Quotes (local)</h3><strong id="kpiQuotes">—</strong><p class="tiny">IndexedDB · exportable</p></div>
+        <div class="card"><h3>Sync queue</h3><strong id="kpiQueue">—</strong><p class="tiny">Offline captures</p></div>
+      </div>
+      <div class="grid2" style="margin-top:12px;">
+        <div class="card">
+          <h3>Margin health (live from quote engine logic)</h3>
+          <p class="tiny">Blended target 36–42%. The quote engine enforces 28% floor on decorated work + 50% decoration margin floor. See <code>catalogue.json → config</code>.</p>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem;">
+            <span class="kbd">VAT 14%</span><span class="kbd">Duty 40–45% clothing (import)</span><span class="kbd">Free delivery ≥ P25k</span><span class="kbd">Credit +2%/30d</span><span class="kbd">Rush +20%</span>
+          </div>
+          <p class="tiny" style="margin-top:.7rem;"><a href="./#builder">→ Test quote on storefront</a> · <a href="#pricing" onclick="switchPanel('pricing')">Edit pricing →</a></p>
+        </div>
+        <div class="card">
+          <h3>What outcompetes everyone — the moat you own</h3>
+          <ul class="tiny" style="margin:.4rem 0 0 1rem;">
+            <li><strong>Multi-supplier orchestration</strong> — Amrod (14k SKUs) + Barron + Jonsson + TwentyFour + Jasani + China + local CMT — not locked to one sheet</li>
+            <li><strong>Instant price transparency</strong> — live answer panel vs competitors’ “DM for price”</li>
+            <li><strong>Certificate pack in &lt;4 min</strong> — BOBS CoC + EN ISO per SKU (BDB-022)</li>
+            <li><strong>Brand Vault + store</strong> — sticky reorders; switching cost brutal</li>
+            <li><strong>Local-content credit</strong> — 10–15% preference margin via local CMT</li>
+            <li><strong>Offline-first PWA + ERP</strong> — quotes work on 3G and mine-gate, no data centre</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px;">
+        <h3>Today’s focus (from PRIORITIZED-EXECUTION-PLAN)</h3>
+        <p class="tiny">Tier 0: BDB-007 tax/VAT/BOBS in writing → BDB-005 cost 4 real jobs → BDB-001 Amrod trade → BDB-020 credit policy. This ERP makes each measurable.</p>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+          <a class="btn ghost" href="#suppliers" onclick="switchPanel('suppliers')">Open Suppliers</a>
+          <a class="btn ghost" href="#catalogue" onclick="switchPanel('catalogue')">Edit Catalogue</a>
+          <a class="btn ghost" href="../docs/PRIORITIZED-EXECUTION-PLAN.md" target="_blank">Read plan</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Catalogue -->
+    <section id="panel-catalogue" class="panel">
+      <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+        <h2 style="margin:0;">Catalogue</h2>
+        <span class="badge" id="catCount">—</span>
+        <button class="btn ghost" id="catExport">Export JSON</button>
+        <button class="btn primary" id="catAdd">+ Product</button>
+      </div>
+      <div style="display:flex;gap:.5rem;margin:.8rem 0;flex-wrap:wrap;">
+        <input id="catSearch" type="search" placeholder="Filter by name, category, decor…" style="flex:1 1 220px;min-height:42px;padding:.5rem .7rem;border:1px solid var(--line);border-radius:12px;" />
+        <select id="catChannel" style="min-height:42px;padding:.5rem .7rem;border:1px solid var(--line);border-radius:12px;"><option value="">All channels</option><option value="sa_trade">SA trade (duty embedded)</option><option value="import">Direct import (duty applies)</option><option value="local">Local CMT</option><option value="local_stock">Buffer stock</option></select>
+        <select id="catCategory" style="min-height:42px;padding:.5rem .7rem;border:1px solid var(--line);border-radius:12px;"><option value="">All categories</option></select>
+        <select id="catSupplier" style="min-height:42px;padding:.5rem .7rem;border:1px solid var(--line);border-radius:12px;"><option value="">All suppliers</option></select>
+      </div>
+      <div class="table-wrap"><table id="catTable"><thead><tr><th>SKU</th><th>Name</th><th>Category</th><th>Cost</th><th>Channel</th><th>MOQ</th><th>Lead</th><th>Decor</th><th>Suppliers</th><th></th></tr></thead><tbody></tbody></table></div>
+      <p class="tiny" style="margin-top:.6rem;">Channel legend: <code>sa_trade</code> duty embedded (2–7d) · <code>import</code> SACU MFN 40–45% clothing + VAT + freight (6–10w) · <code>local</code> CMT tender advantage · <code>local_stock</code> 0d. Edit landed cost = duty-paid.</p>
+      <!-- Editor -->
+      <div id="catEditor" class="card" hidden style="margin-top:12px;">
+        <h3 id="catEditorTitle">Add product</h3>
+        <div class="row2">
+          <label class="field"><span>ID (sku)</span><input id="e_id" placeholder="c16 or w15" /></label>
+          <label class="field"><span>Name</span><input id="e_name" placeholder="e.g. Chef apron — premium" /></label>
+        </div>
+        <div class="row3">
+          <label class="field"><span>Category</span><select id="e_cat"><option>Workwear & PPE</option><option>Corporate clothing</option><option>Headwear</option><option>Corporate gifts</option><option>Display & event</option><option>Hospitality</option><option>Healthcare</option></select></label>
+          <label class="field"><span>Unit</span><select id="e_unit"><option>each</option><option>pair</option><option>set</option><option>box</option></select></label>
+          <label class="field"><span>Channel</span><select id="e_channel"><option value="sa_trade">sa_trade — SA trade (duty embedded)</option><option value="import">import — direct import (duty applies)</option><option value="local">local — Botswana CMT</option><option value="local_stock">local_stock — Gabs buffer</option></select></label>
+        </div>
+        <div class="row3">
+          <label class="field"><span>Landed cost (P)</span><input id="e_cost" type="number" min="0" step="1" /></label>
+          <label class="field"><span>MOQ</span><input id="e_moq" type="number" min="1" step="1" /></label>
+          <label class="field"><span>Lead days</span><input id="e_lead" type="number" min="0" step="1" /></label>
+        </div>
+        <label class="field"><span>Decor methods (comma)</span><input id="e_decor" placeholder="embroidery, dtf_a5, screen" /><small>Valid: embroidery, dtf_a4, dtf_a5, screen, sublimation, heat_transfer, laser, pad_print</small></label>
+        <label class="field"><span>Suppliers (ids, comma)</span><input id="e_suppliers" placeholder="amrod_bw, barron_sa" /><small>From Suppliers registry — drives sourcing choice</small></label>
+        <div style="display:flex;gap:.5rem;margin-top:.8rem;">
+          <button class="btn primary" id="e_save">Save to IndexedDB</button>
+          <button class="btn ghost" id="e_cancel">Cancel</button>
+          <button class="btn quiet" id="e_delete" style="margin-left:auto;color:var(--danger);">Delete</button>
+        </div>
+        <p class="tiny" style="margin-top:.6rem;">Save updates local ERP instantly and is exportable to <code>store/data/catalogue.json</code> via Import/Export → GitHub commit (free).</p>
+      </div>
+    </section>
+
+    <!-- Suppliers -->
+    <section id="panel-suppliers" class="panel">
+      <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+        <h2 style="margin:0;">Suppliers</h2>
+        <span class="badge live">12 lanes · free orchestration layer</span>
+        <button class="btn ghost" id="supExport">Export JSON</button>
+        <button class="btn primary" id="supAdd">+ Supplier</button>
+      </div>
+      <p class="tiny">All blank merchandise + PPE lanes in one orchestration board. Trade-only ally <strong>Amrod</strong> is your primary; everyone else is benchmark, overflow or import leverage. Tap a card to edit trade status, MOQ, lead time, duty.</p>
+      <div style="display:flex;gap:.5rem;margin:.8rem 0;flex-wrap:wrap;">
+        <input id="supSearch" type="search" placeholder="Search supplier, category, channel…" style="flex:1 1 260px;min-height:42px;padding:.5rem .7rem;border:1px solid var(--line);border-radius:12px;" />
+        <select id="supChannel" style="min-height:42px;padding:.5rem .7rem;border:1px solid var(--line);border-radius:12px;"><option value="">All channels</option><option value="sa_trade">sa_trade</option><option value="import">import</option><option value="local">local</option><option value="local_stock">buffer</option></select>
+      </div>
+      <div id="supplierGrid" class="supplier-grid"></div>
+      <div id="supEditor" class="card" hidden style="margin-top:12px;">
+        <h3 id="supEditorTitle">Edit supplier</h3>
+        <div class="row2"><label class="field"><span>ID</span><input id="s_id" /></label><label class="field"><span>Name</span><input id="s_name" /></label></div>
+        <div class="row2"><label class="field"><span>URL</span><input id="s_url" placeholder="https://…" /></label><label class="field"><span>Channel</span><select id="s_channel"><option value="sa_trade">sa_trade</option><option value="import">import</option><option value="local">local</option><option value="local_stock">local_stock</option></select></label></div>
+        <div class="row3"><label class="field"><span>Lead days</span><input id="s_lead" type="number" /></label><label class="field"><span>Trade only?</span><select id="s_trade"><option value="true">trade-only</option><option value="false">open</option></select></label><label class="field"><span>Status</span><input id="s_status" placeholder="Trade account open / Benchmark" /></label></div>
+        <label class="field"><span>Categories (comma)</span><input id="s_cats" /></label>
+        <label class="field"><span>Notes</span><textarea id="s_notes"></textarea></label>
+        <div style="display:flex;gap:.5rem;margin-top:.8rem;"><button class="btn primary" id="s_save">Save</button><button class="btn ghost" id="s_cancel">Cancel</button><button class="btn quiet" id="s_delete" style="margin-left:auto;color:var(--danger);">Delete</button></div>
+      </div>
+    </section>
+
+    <!-- Vendors -->
+    <section id="panel-vendors" class="panel">
+      <h2>Vendor Content</h2>
+      <p class="tiny">Vendor-supplied content (descriptions, images, size charts, test reports) managed here. This is the CMS layer that overlays the product master and feeds SEO, catalogue cards and the certificate register. All edits are local-first, exportable to <code>vendors.json</code>.</p>
+      <div class="table-wrap"><table id="vendorTable"><thead><tr><th>Vendor</th><th>Supplier</th><th>Type</th><th>Items</th><th>Status</th><th>Last sync</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="card" style="margin-top:12px;">
+        <h3>Add vendor content</h3>
+        <div class="row2"><label class="field"><span>Vendor name</span><input id="v_name" placeholder="e.g. Barron Brand Assets" /></label><label class="field"><span>Supplier ID</span><input id="v_sup" placeholder="barron_sa" /></label></div>
+        <div class="row2"><label class="field"><span>Type</span><select id="v_type"><option>Trade supplier content</option><option>Brand owner content</option><option>PPE compliance content</option><option>Import gift content</option></select></label><label class="field"><span>Status</span><select id="v_status"><option>active</option><option>benchmark</option><option>paused</option></select></label></div>
+        <label class="field"><span>Assets (comma)</span><input id="v_assets" placeholder="images, size_charts, test_reports" /></label>
+        <label class="field"><span>Notes</span><textarea id="v_notes"></textarea></label>
+        <div style="display:flex;gap:.5rem;margin-top:.7rem;"><button class="btn primary" id="v_add">Add vendor</button><button class="btn ghost" id="v_export">Export vendors.json</button></div>
+      </div>
+    </section>
+
+    <!-- Quotes -->
+    <section id="panel-quotes" class="panel">
+      <div style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;">
+        <h2 style="margin:0;">Quotes & Orders</h2>
+        <span class="badge" id="qCount">—</span>
+        <button class="btn primary" id="qAdd">+ Quote (manual)</button>
+        <button class="btn ghost" id="qExport">Export JSON</button>
+      </div>
+      <p class="tiny">Every storefront quote can be captured here (offline queue → this table). Status: <code>draft → sent → approved → production → delivered → invoiced</code>. Margin floor is re-checked on import.</p>
+      <div style="display:flex;gap:.5rem;margin:.8rem 0;flex-wrap:wrap;">
+        <input id="qSearch" type="search" placeholder="Search quote, customer…" style="flex:1 1 240px;min-height:42px;padding:.5rem .7rem;border:1px solid var(--line);border-radius:12px;" />
+        <select id="qStatus" style="min-height:42px;padding:.5rem .7rem;border:1px solid var(--line);border-radius:12px;"><option value="">All statuses</option><option>draft</option><option>sent</option><option>approved</option><option>production</option><option>delivered</option><option>invoiced</option></select>
+      </div>
+      <div class="table-wrap"><table id="quoteTable"><thead><tr><th>Ref</th><th>Customer</th><th>SKU</th><th>Qty</th><th>Total ex VAT</th><th>Margin</th><th>Status</th><th>Created</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div id="qEditor" class="card" hidden style="margin-top:12px;">
+        <h3 id="qEditorTitle">Add quote / order</h3>
+        <div class="row2"><label class="field"><span>Customer</span><input id="q_customer" placeholder="e.g. North Gate School" /></label><label class="field"><span>SKU (from catalogue)</span><input id="q_sku" placeholder="c01" /></label></div>
+        <div class="row3"><label class="field"><span>Qty</span><input id="q_qty" type="number" value="100" /></label><label class="field"><span>Total ex VAT (P)</span><input id="q_total" type="number" /></label><label class="field"><span>Margin %</span><input id="q_margin" type="number" step="0.1" placeholder="0.38" /></label></div>
+        <div class="row2"><label class="field"><span>Status</span><select id="q_status"><option>draft</option><option>sent</option><option>approved</option><option>production</option><option>delivered</option><option>invoiced</option></select></label><label class="field"><span>Delivery zone</span><select id="q_zone"><option>Gaborone</option><option>Jwaneng</option><option>Francistown</option><option>Maun</option><option>Palapye</option><option>Mine gate / remote site (per drop)</option></select></label></div>
+        <div style="display:flex;gap:.5rem;margin-top:.8rem;"><button class="btn primary" id="q_save">Save</button><button class="btn ghost" id="q_cancel">Cancel</button><button class="btn quiet" id="q_delete" style="margin-left:auto;color:var(--danger);">Delete</button></div>
+      </div>
+    </section>
+
+    <!-- Customers -->
+    <section id="panel-customers" class="panel">
+      <h2>Customers & Brand Vaults</h2>
+      <p class="tiny">Minimal PII (DPA 2024): name + work contact + size matrix only. Vault holds vector logos, Pantone→thread, approved placements, delivery addresses. Stored in IndexedDB, Botswana-resident copy on export.</p>
+      <div class="table-wrap"><table id="customerTable"><thead><tr><th>Customer</th><th>Vault</th><th>Stores</th><th>Last order</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="card" style="margin-top:12px;">
+        <div class="row2"><label class="field"><span>Customer / Organisation</span><input id="c_name" placeholder="e.g. Bank Gaborone — Head Office" /></label><label class="field"><span>Contact (work email/phone)</span><input id="c_contact" placeholder="procurement@…" /></label></div>
+        <label class="field"><span>Vault note (logos, pantones, sizes)</span><textarea id="c_vault" placeholder="Logo v2, Pantone 2945C → Madeira 1144, size matrix: M 12 L 18 XL 10…"></textarea></label>
+        <div style="display:flex;gap:.5rem;margin-top:.7rem;"><button class="btn primary" id="c_add">Add / update customer</button><button class="btn ghost" id="c_export">Export vaults.json</button></div>
+      </div>
+    </section>
+
+    <!-- Partners -->
+    <section id="panel-partners" class="panel">
+      <h2>Partner Network</h2>
+      <p class="tiny">Vetted decorators / signage / delivery partners. Scorecard: on-time %, defect %, communication. 3 strikes = removal. Written subcontract + QC annexure required (SOP-06).</p>
+      <div class="table-wrap"><table id="partnerTable"><thead><tr><th>Partner</th><th>Town</th><th>Capacity/day</th><th>On-time</th><th>Defect</th><th>Status</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="card" style="margin-top:12px;">
+        <div class="row2"><label class="field"><span>Partner name</span><input id="p_name" /></label><label class="field"><span>Town</span><select id="p_town"><option>Gaborone</option><option>Francistown</option><option>Maun</option><option>Palapye</option><option>Selebi-Phikwe</option><option>Jwaneng</option><option>Orapa / Letlhakane</option><option>Kasane</option></select></label></div>
+        <div class="row2"><label class="field"><span>Machines</span><input id="p_machines" placeholder="Embroidery 1-head, DTF, heat press" /></label><label class="field"><span>Capacity/day</span><input id="p_cap" type="number" placeholder="60" /></label></div>
+        <div style="display:flex;gap:.5rem;margin-top:.7rem;"><button class="btn primary" id="p_add">Add partner</button></div>
+      </div>
+    </section>
+
+    <!-- Certificates -->
+    <section id="panel-certs" class="panel">
+      <h2>Certificate Register (per SKU)</h2>
+      <p class="tiny">BDB-022: every stocked SKU has a test report / CoC reference. Pack attachable to a quote in &lt;4 min. This is how you beat every local competitor on a mine tender.</p>
+      <div class="table-wrap"><table id="certTable"><thead><tr><th>SKU</th><th>Certificate</th><th>Issuer</th><th>Standard</th><th>Expiry</th><th>File</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="card" style="margin-top:12px;">
+        <div class="row2"><label class="field"><span>SKU</span><input id="cert_sku" placeholder="w03" /></label><label class="field"><span>Standard</span><input id="cert_std" placeholder="EN ISO 20471" /></label></div>
+        <div class="row2"><label class="field"><span>Certificate ID</span><input id="cert_id" placeholder="BOBS CoC 2026-…" /></label><label class="field"><span>Issuer</span><input id="cert_issuer" placeholder="BOBS / SABS / manufacturer" /></label></div>
+        <div class="row2"><label class="field"><span>Expiry</span><input id="cert_exp" type="date" /></label><label class="field"><span>File link (Drive)</span><input id="cert_file" placeholder="https://drive.google.com/…" /></label></div>
+        <div style="display:flex;gap:.5rem;margin-top:.7rem;"><button class="btn primary" id="cert_add">Add certificate</button></div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="panel-pricing" class="panel">
+      <h2>Pricing Rules</h2>
+      <p class="tiny">Duty-aware, margin-tiered engine. Edit → Save → export to <code>catalogue.json → config</code>. The storefront reads these live; the floor logic protects every quote.</p>
+      <div id="pricingEditor" class="card">
+        <div class="row2"><label class="field"><span>VAT %</span><input id="pr_vat" type="number" step="0.01" /></label><label class="field"><span>Free delivery threshold (P)</span><input id="pr_free" type="number" /></label></div>
+        <div class="row2"><label class="field"><span>Min order value (P)</span><input id="pr_min" type="number" /></label><label class="field"><span>Rush surcharge %</span><input id="pr_rush" type="number" step="0.01" /></label></div>
+        <div class="row3"><label class="field"><span>Credit 30d %</span><input id="pr_c30" type="number" step="0.01" /></label><label class="field"><span>Credit 60d %</span><input id="pr_c60" type="number" step="0.01" /></label><label class="field"><span>Decoration floor (× cost)</span><input id="pr_floor" type="number" step="0.1" /></label></div>
+        <div class="row2"><label class="field"><span>Margin tiers (JSON)</span><textarea id="pr_tiers" style="min-height:110px;"></textarea><small>e.g. [{"min_qty":0,"margin":0.48},{"min_qty":25,"margin":0.40}]</small></label><label class="field"><span>Delivery zones (JSON)</span><textarea id="pr_zones" style="min-height:110px;"></textarea><small>From catalogue.json delivery[]</small></label></div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem;">
+          <button class="btn primary" id="pr_save">Save to DB + catalogue.json</button>
+          <button class="btn ghost" id="pr_reset">Reload from catalogue.json</button>
+          <button class="btn ghost" id="pr_export">Export config</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stock -->
+    <section id="panel-stock" class="panel">
+      <h2>Buffer Stock</h2>
+      <p class="tiny">Asset-light rule: ≤50 SKUs, ≤35 days cover, weekly count on fast movers. This panel mirrors the top-50 buffer in <code>catalogue.json</code> (channel <code>local_stock</code>).</p>
+      <div class="table-wrap"><table id="stockTable"><thead><tr><th>SKU</th><th>Name</th><th>On hand</th><th>Cover (days)</th><th>Reorder?</th><th></th></tr></thead><tbody></tbody></table></div>
+      <div class="card" style="margin-top:12px;">
+        <div class="row3"><label class="field"><span>SKU</span><input id="st_sku" placeholder="c06" /></label><label class="field"><span>On hand</span><input id="st_qty" type="number" /></label><label class="field"><span>Daily demand</span><input id="st_demand" type="number" step="0.1" /></label></div>
+        <div style="display:flex;gap:.5rem;margin-top:.7rem;"><button class="btn primary" id="st_add">Update stock</button></div>
+      </div>
+    </section>
+
+    <!-- Import/Export -->
+    <section id="panel-import" class="panel">
+      <h2>Import / Export — GitHub as the free CMS</h2>
+      <p class="tiny">All ERP data lives in <strong>IndexedDB (browser)</strong> — free, offline, durable. Use this panel to <strong>import supplier sheets</strong> and <strong>export JSON for GitHub</strong> (the durable, audited source of truth that Cloudflare Pages deploys). No paid DB needed.</p>
+      <div class="grid2">
+        <div class="card">
+          <h3>Import</h3>
+          <label class="field"><span>Paste JSON (products/suppliers) or CSV</span><textarea id="im_paste" style="min-height:160px;" placeholder='Paste catalogue.json products[] or suppliers.json or CSV: id,name,landed_cost,moq,lead_days,channel'></textarea></label>
+          <label class="field"><span>Target store</span><select id="im_target"><option value="products">products</option><option value="suppliers">suppliers</option><option value="vendors">vendors</option><option value="quotes">quotes</option><option value="customers">customers</option><option value="partners">partners</option></select></label>
+          <label class="field"><span>Mode</span><select id="im_mode"><option value="merge">Merge (upsert)</option><option value="replace">Replace store</option></select></label>
+          <div style="display:flex;gap:.5rem;margin-top:.7rem;"><button class="btn primary" id="im_run">Import</button><button class="btn ghost" id="im_sample">Load sample CSV</button></div>
+          <p class="tiny" style="margin-top:.6rem;">CSV columns: <code>id,name,category,unit,landed_cost,moq,lead_days,channel,decor</code>. Decor = <code>embroidery|screen|dtf_a5</code> pipe-separated.</p>
+        </div>
+        <div class="card">
+          <h3>Export</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:.4rem;">
+            <button class="btn ghost" data-export="products">products</button>
+            <button class="btn ghost" data-export="suppliers">suppliers</button>
+            <button class="btn ghost" data-export="vendors">vendors</button>
+            <button class="btn ghost" data-export="quotes">quotes</button>
+            <button class="btn ghost" data-export="customers">customers</button>
+            <button class="btn ghost" data-export="partners">partners</button>
+            <button class="btn ghost" data-export="certificates">certificates</button>
+            <button class="btn ghost" data-export="vaults">vaults</button>
+            <button class="btn primary" id="exAll">Export ALL (full ERP dump)</button>
+          </div>
+          <label class="field" style="margin-top:.8rem;"><span>Output</span><textarea id="ex_out" style="min-height:200px;" readonly></textarea></label>
+          <div style="display:flex;gap:.5rem;"><button class="btn ghost" id="exCopy">Copy</button><button class="btn ghost" id="exDownload">Download .json</button></div>
+          <p class="tiny" style="margin-top:.6rem;">Commit exported files to <code>store/data/</code> and push — Cloudflare Pages deploys the store with new data. Zero cost.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px;">
+        <h3>Supplier sheet quick-import</h3>
+        <p class="tiny">Paste a live price list (WhatsApp price + MOQ + lead time) → this normalises to catalogue shape → update landed cost → margin floor re-checks automatically.</p>
+      </div>
+    </section>
+
+    <!-- System -->
+    <section id="panel-system" class="panel">
+      <h2>System</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Security</h3>
+          <label class="field"><span>Admin PIN (this device only)</span><input id="sys_pin" type="password" placeholder="4–12 digits" /></label>
+          <div style="display:flex;gap:.5rem;margin-top:.7rem;"><button class="btn primary" id="sys_pin_save">Save PIN</button><button class="btn ghost" id="sys_pin_clear">Clear (reset to 2026)</button></div>
+          <hr />
+          <h3>Cloudflare Access (team)</h3>
+          <p class="tiny">For a real team, don’t share a PIN. Put <code>/admin.html*</code> behind <strong>Cloudflare Access</strong> (Zero Trust, free 50 users): Cloudflare dashboard → Access → Add application → Path <code>brandinganddecoration.co.bw/admin.html*</code> → Allow your emails. Now the CMS is SSO-protected, still free.</p>
+          <p class="tiny"><code>docs/CLOUDFLARE_WALKTHROUGH.md</code> if present.</p>
+        </div>
+        <div class="card">
+          <h3>Storage & PWA</h3>
+          <p class="tiny" id="sysStorage">—</p>
+          <p class="tiny" id="sysSW">—</p>
+          <p class="tiny" id="sysCache">—</p>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem;">
+            <button class="btn ghost" id="sysCheckStorage">Check storage</button>
+            <button class="btn ghost" id="sysUpdateSW">Update SW</button>
+            <button class="btn ghost" id="sysClearCache">Clear caches</button>
+          </div>
+          <hr />
+          <h3>Danger zone</h3>
+          <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+            <button class="btn ghost" id="sysExportAll" style="border-color:#c6e7d6;">Backup: export ALL</button>
+            <button class="btn quiet" id="sysWipe" style="color:var(--danger);">Wipe IndexedDB (this device)</button>
+          </div>
+          <p class="tiny">Wipe is device-local. GitHub JSON remains the durable copy — re-seed after wipe.</p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px;">
+        <h3>Free stack audit — what competes for you at P0</h3>
+        <div class="table-wrap"><table><thead><tr><th>Layer</th><th>Free service</th><th>Limit</th><th>Your advantage</th></tr></thead><tbody>
+          <tr><td>Hosting + CDN</td><td>Cloudflare Pages</td><td>Unlimited bandwidth (free)</td><td>Global edge, instant deploys from Git</td></tr>
+          <tr><td>Functions</td><td>Pages Functions / Workers</td><td>100k req/day free</td><td>Add quote persistence later without a server</td></tr>
+          <tr><td>DB (optional later)</td><td>D1 (SQLite)</td><td>5 GB free</td><td>Only when quotes &gt;60/mo; today IndexedDB is enough</td></tr>
+          <tr><td>KV</td><td>Workers KV</td><td>1 GB free</td><td>Cache for price sheets</td></tr>
+          <tr><td>Repo + CMS</td><td>GitHub</td><td>Free</td><td>Audited JSON history, no vendor lock-in</td></tr>
+          <tr><td>Offline</td><td>Browser IndexedDB + SW</td><td>Device quota (~60% of disk)</td><td>Works at mine-gate on 2G/3G, no signal needed</td></tr>
+          <tr><td>Auth</td><td>Cloudflare Access</td><td>50 users free</td><td>SSO for team, PIN for solo</td></tr>
+          <tr><td>Analytics</td><td>Cloudflare Web Analytics</td><td>Free, no cookies</td><td>DPA-friendly</td></tr>
+        </tbody></table></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script src="assets/db.js"></script>
+<script src="assets/admin.js"></script>
+</body>
+</html>
