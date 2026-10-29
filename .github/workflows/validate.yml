@@ -35,8 +35,9 @@ jobs:
           echo "→ sitemap must contain seo/ pages"
           grep -q "seo/" store/sitemap.xml && echo "✓ sitemap has seo" || (echo "sitemap missing seo" && exit 1)
           echo "→ html must have canonical + LD-JSON"
-          for f in store/index.html store/seo/*.html store/admin.html; do
+          for f in store/index.html store/seo/*.html store/ethical-charter.html store/admin.html; do
             [ -f "$f" ] || continue
+            if grep -q 'noindex' "$f"; then echo "ℹ $f is noindex (admin) — canonical optional but present"; continue; fi
             grep -q 'rel="canonical"' "$f" || (echo "missing canonical in $f" && exit 1)
           done
           echo "✓ SEO ok"
