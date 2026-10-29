@@ -1,9 +1,12 @@
 name: cloudflare-pages
 # Free Cloudflare Pages — no Wrangler secret needed if you connect Pages to GitHub.
-# This workflow is DOCUMENTATION + OPTIONAL direct deploy via Wrangler (free).
-# Default path: just rely on Pages Git integration (store/ output). This job validates readiness.
+# This workflow validates that store/ is deployable to Pages (free, 0 secrets, 0 build).
+# Git-connected Pages deploys store/ automatically — this check runs on every arena/ branch too
+# so you see readiness before merging to main. No paid Wrangler, no KV/D1 needed at this scale.
 on:
   push:
+    branches: [ main, "arena/**" ]
+  pull_request:
     branches: [ main ]
   workflow_dispatch:
 
@@ -13,18 +16,25 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
-      - name: Pages readiness check (free, no secret)
+      - name: Pages readiness check (free, no secret — store/ is the output)
         run: |
-          echo "→ Cloudflare Pages free deploy uses Git integration — no Wrangler token required"
-          echo "   Dashboard: Workers & Pages → Create → Pages → Connect to Git → repo presscafe/brandinganddecorationbotswana"
-          echo "   Build command: (empty)  Output directory: store"
-          echo "   Custom domain: brandinganddecoration.co.bw  (auto SSL)"
+          echo "→ Cloudflare Pages free deploy — Git integration (0 secrets, 0 Wrangler, 0 build)"
+          echo "   Dashboard: Workers & Pages → Create → Pages → Connect to Git → presscafe/brandinganddecorationbotswana"
+          echo "   Build command: (leave empty)  Output directory: store  Root directory: (empty)"
+          echo "   Custom domain: brandinganddecoration.co.bw → auto SSL, _headers and _redirects handled at edge (free)"
           echo ""
           test -f store/index.html || (echo "store/index.html missing" && exit 1)
-          test -f store/_headers || echo "warn: _headers missing"
-          test -f store/_redirects && echo "✓ _redirects present" || echo "ℹ no _redirects needed for static"
-          test -f store/404.html && echo "✓ 404.html present" || echo "warn: 404 missing"
-          echo "✓ Pages-ready: store/ is deployable as-is"
+          test -f store/_headers || (echo "store/_headers missing" && exit 1)
+          grep -q "Strict-Transport-Security" store/_headers && echo "✓ _headers HSTS" || (echo "HSTS missing" && exit 1)
+          grep -q "Content-Security-Policy" store/_headers && echo "✓ _headers CSP" || (echo "CSP missing" && exit 1)
+          test -f store/_redirects && echo "✓ _redirects present ($(wc -l < store/_redirects) rules)" || (echo "_redirects missing" && exit 1)
+          test -f store/404.html && echo "✓ 404.html present" || (echo "warn: 404 missing" && exit 1)
+          test -f store/sitemap.xml && echo "✓ sitemap.xml present" || exit 1
+          test -f store/robots.txt && echo "✓ robots.txt present" || exit 1
+          grep -q "brandinganddecoration.co.bw" store/sitemap.xml && echo "✓ sitemap domain canonical" || echo "warn sitemap domain"
+          echo ""
+          echo "✓ Pages-ready: store/ deployable as-is — 0/ mo, 500 builds/mo free, bandwidth free"
+          echo "  Next: merge this branch to main → Pages auto-deploys. Custom domain SSL is free."
 
   # Optional: direct Wrangler deploy (only if you add CLOUDFLARE_API_TOKEN + ACCOUNT_ID as repo secrets — still free tier)
   # Uncomment when secrets are set; otherwise the Git-connected Pages deploy is preferred (0 secrets).

@@ -1,0 +1,21 @@
+# Cloudflare Pages _redirects — free, edge-handled (no Worker needed)
+# Keep store/ deployable as static, no build. This file gives clean URLs + security.
+
+# Canonical domain — keep https://brandinganddecoration.co.bw as primary
+# (Configure in Cloudflare Pages → Custom domains; this file only handles paths)
+
+/admin              /admin.html   301
+/admin/             /admin.html   301
+/ethics             /ethical-charter.html 301
+/ethical-charter    /ethical-charter.html 301
+/privacy            /privacy.html 301
+/terms              /terms.html 301
+/quote              /#builder     301
+/catalogue          /#catalogue   301
+
+# SEO leaves — optional pretty aliases (keep .html canonical, this is just convenience)
+/corporate-gifts     /seo/corporate-gifts-botswana.html 301
+/ppe                /seo/ppe-supplier-gaborone.html 301
+/workwear           /seo/embroidered-workwear-botswana.html 301
+
+# 404 is served automatically by Pages from store/404.html — no rule needed

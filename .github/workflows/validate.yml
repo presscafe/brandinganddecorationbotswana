@@ -50,15 +50,43 @@ jobs:
       - name: Verify PWA shell cache version bump hygiene
         run: |
           grep -q "CACHE_VERSION" store/sw.js && echo "✓ sw.js has CACHE_VERSION" || exit 1
-          # warn if manifest start_url not ./
           grep -q '"start_url": "./"' store/manifest.webmanifest && echo "✓ manifest start_url" || echo "warn start_url"
-      - name: Lighthouse CI (free, no deploy)
-        # free tier: runs in CI, no server needed — just audit store/ as static
+          grep -q "ethical-charter" store/sw.js && echo "✓ sw precaches ethical-charter" || echo "warn sw missing ethical-charter"
+          grep -q '"shortcuts"' store/manifest.webmanifest && echo "✓ manifest shortcuts" || echo "warn shortcuts"
+          grep -q '"share_target"' store/manifest.webmanifest && echo "✓ manifest share_target" || echo "warn share_target"
+      - name: Check responsive + offline + ethics (intl + Islamic without religious)
         run: |
+          echo "→ responsive"
+          grep -q "@media (max-width: 980px)" store/assets/styles.css && echo "✓ 980px breakpoint" || (echo "missing 980px" && exit 1)
+          grep -q "@media (max-width: 620px)" store/assets/styles.css && echo "✓ 620px breakpoint" || (echo "missing 620px" && exit 1)
+          grep -q "\.builder-grid" store/assets/styles.css && echo "✓ builder-grid" || exit 1
+          grep -q "prefers-reduced-motion" store/assets/styles.css && echo "✓ reduced-motion" || echo "warn reduced-motion"
+          echo "→ offline-first"
+          grep -q "CACHE_VERSION" store/sw.js && echo "✓ SW CACHE_VERSION" || exit 1
+          grep -q "stale-while-revalidate\|/data/" store/sw.js && echo "✓ SW stale-while-revalidate" || echo "warn SW data strategy"
+          grep -q "BDB_DB\|IndexedDB\|syncQueue" store/assets/db.js && echo "✓ IndexedDB ERP (db.js)" || exit 1
+          grep -q "navigator.onLine\|offlineBadge" store/assets/app.js && echo "✓ offline badge hook" || echo "warn offline hook"
+          grep -q "beforeinstallprompt\|deferredPrompt" store/assets/app.js && echo "✓ A2HS hook" || echo "warn A2HS"
+          grep -q "shareQuote\|navigator.share" store/assets/app.js && echo "✓ Web Share" || echo "warn share"
+          echo "→ WCAG 2.2 AA"
+          grep -q 'skip-link' store/index.html && echo "✓ skip-link" || (echo "missing skip-link" && exit 1)
+          grep -q 'aria-live="polite"' store/index.html && echo "✓ aria-live" || exit 1
+          grep -q 'focus-visible' store/assets/styles.css && echo "✓ focus-visible" || echo "warn focus-visible"
+          echo "→ Islamic ethics without religious (secular wording, audit-ready)"
+          test -f store/ethical-charter.html && echo "✓ ethical-charter.html" || (echo "missing ethical-charter.html" && exit 1)
+          grep -q "ethical-charter" store/index.html && echo "✓ index links ethics" || echo "warn index ethics link"
+          grep -q "fixed service markup.*not interest\|not interest" store/index.html && echo "✓ 30d +2% non-riba footnote" || (echo "missing non-riba footnote" && exit 1)
+          grep -q "service markup\|credit.*surcharge" store/assets/app.js && echo "✓ app.js credit surcharge (fixed markup)" || echo "warn credit logic"
+          test -f docs/ethical-charter.md && echo "✓ docs/ethical-charter.md" || echo "warn docs charter"
+      - name: Lighthouse CI (free, no deploy — staticDistDir, warn-only)
+        run: |
+          echo "→ Lighthouse CI (free tier, no Cloudflare deploy needed) — lighthouserc.json drives budgets"
+          cat lighthouserc.json | python3 -m json.tool > /dev/null && echo "✓ lighthouserc.json valid"
           npm init -y >/dev/null 2>&1 || true
-          npm i -D @lhci/cli@0.14.x --no-audit --no-fund 2>&1 | tail -5
-          # run lhci against a static server (npx serve) — budget 90 but warn-only for now
-          echo "Lighthouse CI installed (audit on demand with lhci autorun --staticDistDir=./store)"
+          npm i -D @lhci/cli@0.14.x --no-audit --no-fund 2>&1 | tail -8
+          echo "→ running lhci autorun (warn-only; pwa≥90, a11y≥90, others ≥85)" 
+          npx lhci autorun --config=./lighthouserc.json || echo "⚠ LHCI warning — budgets not yet met (warn-only, not failing CI). Check artifact."
+          echo "✓ Lighthouse step done (free, upload=temporary-public-storage)"
       - name: Summary
         run: |
           echo "### Validate passed ✓" >> $GITHUB_STEP_SUMMARY
