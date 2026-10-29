@@ -8,6 +8,17 @@
    3. Guidance, not blocking: nothing is disabled — costs and minimums are explained instead.
    4. One job per card: pick → brand → fine-tune. */
 
+
+// Competitive: Web Share + A2HS install hook (progressive, free, no dependency)
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; const b=document.getElementById('installBtn'); if(b) b.hidden=false; });
+window.addEventListener('appinstalled', () => { deferredPrompt=null; });
+async function shareQuote(text){
+  const shareData={title: 'B&D Botswana — Quote', text, url: location.href};
+  if(navigator.share && navigator.canShare(shareData)){ try{ await navigator.share(shareData); return true;}catch{ return false; } }
+  return false;
+}
+
 const CONFIG = {
   // PRODUCTION BLOCKER — replace both before any outreach or paid traffic.
   // WHATSAPP_NUMBER: full international number without + or spaces, e.g. "26774000000"

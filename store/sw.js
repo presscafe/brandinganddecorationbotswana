@@ -32,6 +32,7 @@ const APP_SHELL = [
   "./seo/francistown-workwear.html",
   "./seo/maun-workwear.html",
   "./seo/school-uniforms-botswana.html",
+  "./ethical-charter.html",
   "./assets/icon-192.png",
   "./assets/icon-512.png"
 ];
