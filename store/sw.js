@@ -26,6 +26,12 @@ const APP_SHELL = [
   "./seo/jwaneng-mining-workwear.html",
   "./seo/bob-compliance-garments.html",
   "./seo/local-content-tender-botswana.html",
+  "./seo/corporate-clothing-gaborone.html",
+  "./seo/branded-headwear-botswana.html",
+  "./seo/display-event-gaborone.html",
+  "./seo/francistown-workwear.html",
+  "./seo/maun-workwear.html",
+  "./seo/school-uniforms-botswana.html",
   "./assets/icon-192.png",
   "./assets/icon-512.png"
 ];

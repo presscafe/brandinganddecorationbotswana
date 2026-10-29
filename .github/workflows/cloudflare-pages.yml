@@ -1,0 +1,41 @@
+name: cloudflare-pages
+# Free Cloudflare Pages — no Wrangler secret needed if you connect Pages to GitHub.
+# This workflow is DOCUMENTATION + OPTIONAL direct deploy via Wrangler (free).
+# Default path: just rely on Pages Git integration (store/ output). This job validates readiness.
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  pages-readiness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Pages readiness check (free, no secret)
+        run: |
+          echo "→ Cloudflare Pages free deploy uses Git integration — no Wrangler token required"
+          echo "   Dashboard: Workers & Pages → Create → Pages → Connect to Git → repo presscafe/brandinganddecorationbotswana"
+          echo "   Build command: (empty)  Output directory: store"
+          echo "   Custom domain: brandinganddecoration.co.bw  (auto SSL)"
+          echo ""
+          test -f store/index.html || (echo "store/index.html missing" && exit 1)
+          test -f store/_headers || echo "warn: _headers missing"
+          test -f store/_redirects && echo "✓ _redirects present" || echo "ℹ no _redirects needed for static"
+          test -f store/404.html && echo "✓ 404.html present" || echo "warn: 404 missing"
+          echo "✓ Pages-ready: store/ is deployable as-is"
+
+  # Optional: direct Wrangler deploy (only if you add CLOUDFLARE_API_TOKEN + ACCOUNT_ID as repo secrets — still free tier)
+  # Uncomment when secrets are set; otherwise the Git-connected Pages deploy is preferred (0 secrets).
+  # wrangler-deploy:
+  #   if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - run: npm i -g wrangler
+  #     - run: wrangler pages deploy store --project-name=brandinganddecorationbotswana --branch=main
+  #       env:
+  #         CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  #         CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+

@@ -1,0 +1,9 @@
+{
+  "name": "brandinganddecorationbotswana-store",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static store — no build, deployed as-is to Cloudflare Pages",
+  "scripts": {
+    "validate": "python3 -m json.tool data/catalogue.json > /dev/null && python3 -m json.tool data/suppliers.json > /dev/null && node --check assets/app.js && node --check sw.js && echo ok"
+  }
+}

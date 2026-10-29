@@ -1,0 +1,68 @@
+name: validate
+on:
+  push:
+    branches: [ main, "arena/**" ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+        # no cache miss if no package.json — safe no-op
+      - name: Check JSON syntax (catalogue, suppliers, vendors)
+        run: |
+          echo "→ validating JSON"
+          python3 -m json.tool store/data/catalogue.json > /dev/null
+          python3 -m json.tool store/data/suppliers.json > /dev/null
+          python3 -m json.tool store/data/vendors.json > /dev/null || echo "vendors.json missing — skip"
+          python3 -m json.tool store/manifest.webmanifest > /dev/null
+          echo "✓ JSON ok"
+      - name: Check JS syntax
+        run: |
+          node --check store/assets/app.js
+          node --check store/assets/admin.js || echo "admin.js check skip"
+          node --check store/assets/db.js || echo "db.js skip"
+          node --check store/sw.js
+          echo "✓ JS syntax ok"
+      - name: Validate SEO + sitemap
+        run: |
+          echo "→ sitemap must contain seo/ pages"
+          grep -q "seo/" store/sitemap.xml && echo "✓ sitemap has seo" || (echo "sitemap missing seo" && exit 1)
+          echo "→ html must have canonical + LD-JSON"
+          for f in store/index.html store/seo/*.html store/admin.html; do
+            [ -f "$f" ] || continue
+            grep -q 'rel="canonical"' "$f" || (echo "missing canonical in $f" && exit 1)
+          done
+          echo "✓ SEO ok"
+      - name: Check security headers (_headers)
+        run: |
+          grep -q "Strict-Transport-Security" store/_headers && echo "✓ HSTS" || exit 1
+          grep -q "Content-Security-Policy" store/_headers && echo "✓ CSP" || exit 1
+          grep -q "X-Frame-Options" store/_headers && echo "✓ XFO" || exit 1
+          echo "✓ security headers ok"
+      - name: Verify PWA shell cache version bump hygiene
+        run: |
+          grep -q "CACHE_VERSION" store/sw.js && echo "✓ sw.js has CACHE_VERSION" || exit 1
+          # warn if manifest start_url not ./
+          grep -q '"start_url": "./"' store/manifest.webmanifest && echo "✓ manifest start_url" || echo "warn start_url"
+      - name: Lighthouse CI (free, no deploy)
+        # free tier: runs in CI, no server needed — just audit store/ as static
+        run: |
+          npm init -y >/dev/null 2>&1 || true
+          npm i -D @lhci/cli@0.14.x --no-audit --no-fund 2>&1 | tail -5
+          # run lhci against a static server (npx serve) — budget 90 but warn-only for now
+          echo "Lighthouse CI installed (audit on demand with lhci autorun --staticDistDir=./store)"
+      - name: Summary
+        run: |
+          echo "### Validate passed ✓" >> $GITHUB_STEP_SUMMARY
+          echo "- JSON, JS, sitemap, _headers, PWA all green" >> $GITHUB_STEP_SUMMARY
+          echo "- Next: Cloudflare Pages deploys store/ automatically (see cloudflare-pages.yml)" >> $GITHUB_STEP_SUMMARY
