@@ -1,0 +1,13 @@
+id,name,description,unit,qty_tier_sample,landed_cost_placeholder_BWP,moq,lead_days,channel,supplier_id,hs_code_guess,duty_rate_estimate,vat_rate,price_list_date,notes
+c01,Golf shirt pique 180gsm navy,100% cotton piqué 180gsm left chest embroidery 8k stitches,each,25,185,25,7,sa_trade,amrod_bw,6105.10,duty embedded (SA-trade),14%,2026-10-30,Sample tier 25 — request 25/100/500
+w01,Conti suit poly-cotton navy,2pc conti poly-cotton embroidery chest + back,each,20,245,20,7,sa_trade,amrod_bw,6211.33,duty embedded,14%,2026-10-30,SA-trade — state BW vs SA stock
+p01,Hi-vis vest yellow EN20471,Poly tricot hi-vis heat transfer,each,50,85,50,5,sa_trade,barron_sa,6114.30,duty embedded,14%,2026-10-30,Need certificate pack
+b01,Safety boot leather S1P,Leather upper steel toe emboss,each,10,690,10,21,sa_trade,jonsson_sa,6403.40,duty embedded,14%,2026-10-30,EN certified
+g01,Notebook PU A5 with pen,PU notebook A5 pad print,each,120,45,100,7,sa_trade,amrod_bw,4820.10,duty embedded,14%,2026-10-30,Gift lane — also quote Jasani FOB
+g02,Ball pen metal,Metal ball pen pad print,each,120,12,100,7,sa_trade,amrod_bw,9608.10,duty embedded,14%,2026-10-30,Bundled with notebook
+d01,Gazebo 3x3m pop-up,Aluminium 3x3 dye-sub roof+valance,each,2,2450,1,14,import,china_agent,6306.90,40-45% MFN if China,14%,2026-10-30,Import — HS + CoC verify
+d02,Pull-up banner 850x2000,Alum Dye-sub 850x2000 incl bag,each,10,320,1,7,sa_trade,amrod_bw,4911.10,duty embedded,14%,2026-10-30,Display — SA stock
+w02,D59 FR boiler suit,Flame retardant boiler suit,each,10,690,10,21,sa_trade,jonsson_sa,6211.33,duty embedded,14%,2026-10-30,FR cert required
+c09,Cap 5-panel brushed cotton,5-panel cap embroidery front,each,40,38,20,7,sa_trade,amrod_bw,6505.00,duty embedded,14%,2026-10-30,Bank rollout Job A
+h01,Hard hat EN397,HDPE hard hat pad print,each,50,85,20,7,sa_trade,jonsson_sa,6506.10,duty embedded,14%,2026-10-30,PPE Job B — cert
+v01,High vis trousers navy,Hi-vis trousers,each,50,145,20,7,sa_trade,amrod_bw,6211.33,duty embedded,14%,2026-10-30,PP- mining set
